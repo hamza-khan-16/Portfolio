@@ -24,6 +24,7 @@ type Project = {
 type SiteImages = {
   hero_image_url: string;
   about_image_url: string;
+  resume_url: string;
 };
 
 // ── Route ────────────────────────────────────────────────────────────────────
@@ -72,7 +73,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
   return (
     <div style={s.loginWrap}>
       <div style={s.loginCard}>
-        <div style={s.loginLogo}>AK.</div>
+        <div style={s.loginLogo}>HK.</div>
         <h1 style={s.loginTitle}>Admin Panel</h1>
         <p style={s.loginSub}>Portfolio management console</p>
         <form onSubmit={handleSubmit} style={{ width: "100%" }}>
@@ -124,7 +125,7 @@ function Shell({
     <div style={s.shell}>
       {/* sidebar */}
       <aside style={s.sidebar}>
-        <div style={s.sidebarLogo}>AK.</div>
+        <div style={s.sidebarLogo}>HamzaK.</div>
         <nav style={s.nav}>
           <button
             style={{ ...s.navItem, ...(tab === "projects" ? s.navActive : {}) }}
@@ -383,7 +384,7 @@ function ProjectForm({
 //  Site images tab
 // ────────────────────────────────────────────────────────────────────────────
 function ImagesTab() {
-  const [images, setImages] = useState<SiteImages>({ hero_image_url: "", about_image_url: "" });
+  const [images, setImages] = useState<SiteImages>({ hero_image_url: "", about_image_url: "", resume_url: "" });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
@@ -395,7 +396,7 @@ function ImagesTab() {
   useEffect(() => {
     (async () => {
       const { data } = await supabase.from("site_settings").select("*").eq("id", "main").single();
-      if (data) setImages({ hero_image_url: data.hero_image_url ?? "", about_image_url: data.about_image_url ?? "" });
+      if (data) setImages({ hero_image_url: data.hero_image_url ?? "", about_image_url: data.about_image_url ?? "", resume_url: data.resume_url ?? "" });
       setLoading(false);
     })();
   }, []);
@@ -451,6 +452,22 @@ function ImagesTab() {
           onClear={() => { setImages((p) => ({ ...p, about_image_url: "" })); if (aboutRef.current) aboutRef.current.value = ""; }}
         />
       </div>
+
+      {/* ── Resume / document upload ── */}
+      <ResumeUploadBlock
+        value={images.resume_url}
+        onChange={(url) => setImages((p) => ({ ...p, resume_url: url }))}
+        onUpload={async (file) => {
+          const ext = file.name.split(".").pop();
+          const path = `site/resume-${Date.now()}.${ext}`;
+          const { error } = await supabase.storage.from("portfolio").upload(path, file, { upsert: true });
+          if (!error) {
+            const { data } = supabase.storage.from("portfolio").getPublicUrl(path);
+            setImages((p) => ({ ...p, resume_url: data.publicUrl }));
+          }
+        }}
+        onClear={() => setImages((p) => ({ ...p, resume_url: "" }))}
+      />
 
       <div style={s.infoBox}>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5BFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
@@ -520,6 +537,80 @@ function ConfirmModal({ message, onConfirm, onCancel }: { message: string; onCon
           <button style={s.ghostBtn} onClick={onCancel}>Cancel</button>
           <button style={{ ...s.primaryBtn, background: "#ef4444" }} onClick={onConfirm}>Delete</button>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Resume upload block ───────────────────────────────────────────────────────
+function ResumeUploadBlock({
+  value, onChange, onUpload, onClear,
+}: {
+  value: string;
+  onChange: (url: string) => void;
+  onUpload: (f: File) => Promise<void>;
+  onClear: () => void;
+}) {
+  const [uploading, setUploading] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const handle = async (file: File) => {
+    setUploading(true);
+    await onUpload(file);
+    setUploading(false);
+  };
+
+  const getFileName = (url: string) => {
+    try { return decodeURIComponent(url.split("/").pop()?.split("?")[0] ?? url); }
+    catch { return url; }
+  };
+
+  return (
+    <div style={{ ...s.imageBlock, marginBottom: 24 }}>
+      <div style={s.imageBlockLabel}>Resume / CV</div>
+      <div style={s.imageBlockHint}>Upload your CV so the "Download Resume" button works. Accepts PDF, DOCX, or any document.</div>
+
+      <div
+        style={{ ...s.uploadArea, height: "auto", minHeight: 100, flexDirection: "column", gap: 8, padding: 24 }}
+        onClick={() => !value && fileRef.current?.click()}
+      >
+        {value ? (
+          <div style={{ display: "flex", alignItems: "center", gap: 14, width: "100%", padding: "4px 0" }}>
+            <div style={{ width: 44, height: 52, background: "#EEF1FF", border: "1.5px solid #C7D0FF", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3B5BFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/>
+                <path d="M14 2v6h6"/><path d="M9 15h6"/><path d="M9 11h3"/>
+              </svg>
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#181410", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {getFileName(value)}
+              </div>
+              <a href={value} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "#3B5BFF", textDecoration: "none" }}>
+                Preview →
+              </a>
+            </div>
+            <button style={s.ghostBtn} onClick={(e) => { e.stopPropagation(); onClear(); }}>Remove</button>
+          </div>
+        ) : (
+          <>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <span style={{ fontSize: 13, color: "#aaa" }}>{uploading ? "Uploading…" : "Click to upload PDF, DOCX, etc."}</span>
+          </>
+        )}
+        <input ref={fileRef} type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,application/*" style={{ display: "none" }}
+          onChange={(e) => e.target.files?.[0] && handle(e.target.files[0])} />
+      </div>
+
+      <div style={{ display: "flex", gap: 8, marginTop: 10, alignItems: "center" }}>
+        <input style={{ ...s.input, flex: 1, margin: 0, fontSize: 12 }} value={value}
+          onChange={(e) => onChange(e.target.value)} placeholder="Or paste a public document URL…" />
+        <button style={s.ghostBtn} onClick={() => fileRef.current?.click()} disabled={uploading}>
+          {uploading ? "…" : "Replace"}
+        </button>
       </div>
     </div>
   );

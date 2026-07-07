@@ -15,13 +15,17 @@ create table if not exists public.projects (
   created_at  timestamptz default now()
 );
 
--- 2. Site-wide settings (hero photo, about photo)
+-- 2. Site-wide settings (hero photo, about photo, resume)
 create table if not exists public.site_settings (
   id               text primary key default 'main',
   hero_image_url   text not null default '',
   about_image_url  text not null default '',
+  resume_url       text not null default '',
   updated_at       timestamptz default now()
 );
+
+-- If you already ran setup.sql before, add the column manually:
+-- alter table public.site_settings add column if not exists resume_url text not null default '';
 
 -- Seed a default row so upsert always works
 insert into public.site_settings (id)
