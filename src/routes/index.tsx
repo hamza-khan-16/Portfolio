@@ -32,6 +32,7 @@ function Portfolio() {
     <iframe
       title="Hamza K. Portfolio"
       srcDoc={hydratedHtml}
+      sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-top-navigation-by-user-activation"
       style={{
         border: 0,
         width: "100vw",
