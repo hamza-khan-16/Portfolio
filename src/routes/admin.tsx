@@ -626,14 +626,14 @@ const LINE = "#E8E5DD";
 
 const s: Record<string, React.CSSProperties> = {
   // login
-  loginWrap: { minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: PAPER, fontFamily: "'Inter', sans-serif" },
+  loginWrap: { minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: PAPER, fontFamily: "'Inter', sans-serif", cursor: "auto" },
   loginCard: { background: "#fff", border: `1.5px solid ${LINE}`, borderRadius: 20, padding: "48px 44px", width: "100%", maxWidth: 400, boxShadow: "0 8px 40px rgba(0,0,0,0.07)", display: "flex", flexDirection: "column", alignItems: "center" },
   loginLogo: { fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 32, color: INK, marginBottom: 12 },
   loginTitle: { fontSize: 22, fontWeight: 700, color: INK, fontFamily: "'Space Grotesk', sans-serif", marginBottom: 4 },
   loginSub: { fontSize: 13, color: "#888", marginBottom: 28, textAlign: "center" as const },
   loginBtn: { width: "100%", background: INK, color: "#fff", border: "none", borderRadius: 30, padding: "14px 0", fontWeight: 600, fontSize: 15, cursor: "pointer", marginTop: 8, fontFamily: "'Inter', sans-serif", transition: "opacity .2s" },
   // shell
-  shell: { display: "flex", minHeight: "100vh", fontFamily: "'Inter', sans-serif", background: "#F5F3EE" },
+  shell: { display: "flex", minHeight: "100vh", fontFamily: "'Inter', sans-serif", background: "#F5F3EE", cursor: "auto" },
   sidebar: { width: 220, background: INK, display: "flex", flexDirection: "column", padding: "28px 0", flexShrink: 0 },
   sidebarLogo: { fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 26, color: "#fff", padding: "0 24px 28px" },
   nav: { flex: 1, display: "flex", flexDirection: "column", gap: 4, padding: "0 12px" },

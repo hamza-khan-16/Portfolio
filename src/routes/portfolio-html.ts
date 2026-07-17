@@ -1,2 +1,1595 @@
-// Auto-built from src/portfolio/*.txt with fixes applied.
-export const portfolioHtml = "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n<title>Hamza K. \u2014 Portfolio</title>\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@400;500;600;700&family=Kalam:wght@400;700&family=Space+Grotesk:wght@500;600;700&display=swap\">\n<script src=\"https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js\"></script>\n<script src=\"https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js\"></script>\n<script src=\"https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js\"></script>\n<style>\n    :root {\n      --paper: #FAFAF7;\n      --paper-2: #F2EFE7;\n      --ink: #181410;\n      --ink-soft: #57534a;\n      --blue: #3B5BFF;\n      --purple: #8B5CF6;\n      --line: #dcd8cc;\n      --note: #FFF3B0;\n      --radius-sketch: 255px 15px 225px 15px/15px 225px 15px 255px;\n    }\n\n    * {\n      margin: 0;\n      padding: 0;\n      box-sizing: border-box;\n    }\n\n    html {\n      background: var(--paper);\n    }\n\n    body {\n      background: var(--paper);\n      color: var(--ink);\n      font-family: 'Inter', sans-serif;\n      overflow-x: hidden;\n      cursor: none;\n      position: relative;\n    }\n\n    .hand {\n      font-family: 'Caveat', 'Kalam', cursive;\n    }\n\n    ::selection {\n      background: var(--purple);\n      color: #fff;\n    }\n\n    h1,\n    h2,\n    h3 {\n      font-family: 'Space Grotesk', sans-serif;\n      font-weight: 700;\n      letter-spacing: -0.02em;\n      line-height: 1.05;\n    }\n\n    a {\n      color: inherit;\n    }\n\n    img {\n      max-width: 100%;\n      display: block;\n    }\n\n    /* ---------- PAPER TEXTURE LAYERS ---------- */\n    #grain {\n      position: fixed;\n      inset: -50%;\n      width: 200%;\n      height: 200%;\n      pointer-events: none;\n      z-index: 9998;\n      opacity: .045;\n      background: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\");\n      animation: grain 1.1s steps(4) infinite;\n      mix-blend-mode: multiply;\n    }\n\n    @keyframes grain {\n      0% {\n        transform: translate(0, 0)\n      }\n\n      25% {\n        transform: translate(-2%, -3%)\n      }\n\n      50% {\n        transform: translate(2%, 3%)\n      }\n\n      75% {\n        transform: translate(-1%, 2%)\n      }\n\n      100% {\n        transform: translate(0, 0)\n      }\n    }\n\n    body::before {\n      content: \"\";\n      position: fixed;\n      inset: 0;\n      pointer-events: none;\n      z-index: 0;\n      background-image: linear-gradient(var(--line) 1px, transparent 1px);\n      background-size: 100% 42px;\n      opacity: .28;\n      mix-blend-mode: multiply;\n    }\n\n    .coffee-stain {\n      position: absolute;\n      pointer-events: none;\n      opacity: .5;\n      z-index: 0;\n    }\n\n    .fold-mark {\n      position: absolute;\n      pointer-events: none;\n      z-index: 0;\n      opacity: .5;\n    }\n\n    .washi-tape {\n      position: absolute;\n      background: rgba(139, 92, 246, .16);\n      border: 1px solid rgba(0, 0, 0, .04);\n      box-shadow: 0 2px 4px rgba(0, 0, 0, .06);\n      pointer-events: none;\n      z-index: 2;\n    }\n\n    /* ---------- PAGE LOAD FOLD INTRO ---------- */\n    #intro {\n      position: fixed;\n      inset: 0;\n      z-index: 20000;\n      display: flex;\n      perspective: 1600px;\n    }\n\n    .fold-panel {\n      width: 50%;\n      height: 100%;\n      background: var(--paper);\n      position: relative;\n      overflow: hidden;\n      box-shadow: inset 0 0 60px rgba(0, 0, 0, .04);\n    }\n\n    .fold-panel::after {\n      content: \"\";\n      position: absolute;\n      top: 0;\n      bottom: 0;\n      width: 16px;\n      background: linear-gradient(90deg, rgba(0, 0, 0, .08), transparent);\n    }\n\n    .fold-left {\n      transform-origin: left center;\n    }\n\n    .fold-right {\n      transform-origin: right center;\n    }\n\n    .fold-right::after {\n      right: 0;\n      transform: scaleX(-1);\n    }\n\n    .fold-panel svg {\n      position: absolute;\n      width: 60%;\n      opacity: .5;\n    }\n\n    #intro-mark {\n      position: absolute;\n      top: 50%;\n      left: 50%;\n      transform: translate(-50%, -50%);\n      font-family: 'Caveat';\n      font-size: 26px;\n      color: var(--ink-soft);\n      z-index: 2;\n    }\n\n    /* ---------- CURSOR ---------- */\n    #cursor-dot,\n    #cursor-ring {\n      position: fixed;\n      top: 0;\n      left: 0;\n      border-radius: 50%;\n      pointer-events: none;\n      z-index: 9999;\n      transform: translate(-50%, -50%);\n    }\n\n    #cursor-dot {\n      width: 7px;\n      height: 7px;\n      background: var(--ink);\n    }\n\n    #cursor-ring {\n      width: 34px;\n      height: 34px;\n      border: 1.4px solid var(--ink);\n      transition: width .25s, height .25s, border-color .25s, background .25s, opacity .2s;\n    }\n\n    body.hover-link #cursor-dot {\n      opacity: 0;\n    }\n\n    body.hover-link #cursor-ring {\n      width: 56px;\n      height: 56px;\n      background: rgba(139, 92, 246, .08);\n      border-color: var(--purple);\n    }\n\n    body.hover-pencil #cursor-dot,\n    body.hover-pencil #cursor-ring {\n      opacity: 0;\n    }\n\n    #cursor-pencil {\n      position: fixed;\n      top: 0;\n      left: 0;\n      z-index: 10001;\n      pointer-events: none;\n      transform: translate(-2px, -26px) rotate(-8deg);\n      color: var(--ink);\n      opacity: 0;\n      transition: opacity .2s;\n    }\n\n    body.hover-pencil #cursor-pencil {\n      opacity: 1;\n    }\n\n    canvas#ink-trail {\n      position: fixed;\n      inset: 0;\n      z-index: 9997;\n      pointer-events: none;\n    }\n\n    .ripple {\n      position: fixed;\n      border-radius: 50%;\n      border: 1.5px solid var(--blue);\n      pointer-events: none;\n      z-index: 9996;\n      transform: translate(-50%, -50%);\n      animation: rippleOut .65s ease-out forwards;\n    }\n\n    @keyframes rippleOut {\n      0% {\n        width: 0;\n        height: 0;\n        opacity: .8;\n      }\n\n      100% {\n        width: 80px;\n        height: 80px;\n        opacity: 0;\n      }\n    }\n\n    #airplane {\n      position: fixed;\n      top: 0;\n      left: 0;\n      z-index: 9995;\n      pointer-events: none;\n      color: var(--blue);\n      opacity: 0;\n      transition: opacity .3s;\n    }\n\n    .doodle-float {\n      position: fixed;\n      pointer-events: none;\n      z-index: 5;\n    }\n\n    #ink-blots {\n      position: absolute;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 0;\n      pointer-events: none;\n      z-index: 2;\n      mix-blend-mode: multiply;\n    }\n\n    #ink-blots svg {\n      position: absolute;\n    }\n\n    /* ---------- NAV ---------- */\n    nav {\n      position: fixed;\n      top: 0;\n      left: 0;\n      width: 100%;\n      z-index: 500;\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      padding: 22px 6vw;\n      transition: background .3s, box-shadow .3s;\n    }\n\n    .logo {\n      font-family: 'Caveat', cursive;\n      font-weight: 700;\n      font-size: 2rem;\n    }\n\n    .nav-links {\n      display: flex;\n      gap: 36px;\n      list-style: none;\n    }\n\n    .nav-links a {\n      text-decoration: none;\n      font-size: .95rem;\n      font-weight: 500;\n      position: relative;\n      padding-bottom: 4px;\n    }\n\n    .nav-links a::after {\n      content: '';\n      position: absolute;\n      left: 0;\n      bottom: 0;\n      width: 0;\n      height: 2px;\n      background: var(--purple);\n      transition: width .3s ease;\n    }\n\n    .nav-links a:hover::after {\n      width: 100%;\n    }\n\n    .talk-btn {\n      border: 1.5px solid var(--ink);\n      border-radius: 30px;\n      padding: 10px 22px;\n      font-size: .9rem;\n      font-weight: 600;\n      background: transparent;\n      position: relative;\n      overflow: hidden;\n      transition: color .35s ease;\n    }\n\n    .talk-btn span {\n      position: relative;\n      z-index: 2;\n    }\n\n    .talk-btn::before {\n      content: '';\n      position: absolute;\n      inset: 0;\n      background: var(--ink);\n      transform: translateY(101%);\n      transition: transform .35s ease;\n      z-index: 1;\n    }\n\n    .talk-btn:hover {\n      color: #fff;\n    }\n\n    .talk-btn:hover::before {\n      transform: translateY(0);\n    }\n\n    @media(max-width:900px) {\n      .nav-links {\n        display: none;\n      }\n    }\n\n    /* ---------- GENERIC SECTION ---------- */\n    section {\n      position: relative;\n      z-index: 1;\n      padding: 150px 8vw 60px;\n    }\n\n    .container {\n      max-width: 1280px;\n      margin: 0 auto;\n      position: relative;\n    }\n\n    .section-tag {\n      font-family: 'Kalam', cursive;\n      font-size: 1.05rem;\n      color: var(--blue);\n      display: inline-flex;\n      align-items: center;\n      gap: 8px;\n      margin-bottom: 10px;\n      transform: rotate(-1.5deg);\n    }\n\n    .section-title {\n      font-size: clamp(2rem, 4vw, 3rem);\n    }\n\n    .underline-scribble {\n      position: relative;\n      display: inline-block;\n    }\n\n    .underline-scribble svg {\n      position: absolute;\n      left: 0;\n      bottom: -10px;\n      width: 100%;\n      height: 16px;\n      overflow: visible;\n    }\n\n    .reveal {\n      opacity: 0;\n      transform: translateY(40px);\n    }\n\n    /* ---------- HERO ---------- */\n    #hero {\n      min-height: 100vh;\n      display: flex;\n      align-items: center;\n      padding-top: 120px;\n    }\n\n    .hero-grid {\n      display: grid;\n      grid-template-columns: 1.05fr .95fr;\n      gap: 40px;\n      align-items: center;\n      width: 100%;\n    }\n\n    .hey-badge {\n      display: inline-flex;\n      align-items: center;\n      gap: 8px;\n      border: 1.5px dashed var(--ink);\n      border-radius: 30px;\n      padding: 8px 18px;\n      font-family: 'Kalam', cursive;\n      font-size: 1rem;\n      margin-bottom: 24px;\n      transform: rotate(-2deg);\n    }\n\n    .hero-title {\n      font-size: clamp(2.6rem, 5.6vw, 4.8rem);\n    }\n\n    .hero-title .hand {\n      color: var(--blue);\n      font-size: 1.15em;\n      font-weight: 700;\n      position: relative;\n    }\n\n    .hero-sub {\n      margin-top: 22px;\n      font-size: 1.12rem;\n      color: var(--ink-soft);\n      max-width: 470px;\n      line-height: 1.65;\n    }\n\n    .hero-ctas {\n      display: flex;\n      gap: 20px;\n      margin-top: 38px;\n      align-items: center;\n      flex-wrap: wrap;\n    }\n\n    .btn-sketch {\n      position: relative;\n      padding: 16px 30px;\n      font-weight: 600;\n      font-size: 1rem;\n      background: transparent;\n      color: var(--ink);\n      border: none;\n      font-family: 'Inter';\n    }\n\n    .btn-sketch svg.outline {\n      position: absolute;\n      inset: 0;\n      width: 100%;\n      height: 100%;\n      overflow: visible;\n      z-index: 1;\n    }\n\n    .btn-sketch svg.outline path {\n      fill: none;\n      stroke: var(--ink);\n      stroke-width: 1.8;\n    }\n\n    .btn-sketch svg.fill-outline {\n      position: absolute;\n      inset: 0;\n      width: 100%;\n      height: 100%;\n      overflow: visible;\n      z-index: 0;\n    }\n\n    .btn-sketch svg.fill-outline path {\n      fill: var(--ink);\n      transform: scale(0);\n      transform-box: fill-box;\n      transform-origin: 50% 50%;\n      transition: transform .4s cubic-bezier(.6, 0, .3, 1);\n    }\n\n    .btn-sketch:hover svg.fill-outline path {\n      transform: scale(1);\n    }\n\n    .btn-sketch span {\n      position: relative;\n      z-index: 2;\n      transition: color .3s;\n    }\n\n    .btn-sketch:hover span {\n      color: #fff;\n    }\n\n    .btn-ghost {\n      font-family: 'Kalam', cursive;\n      font-size: 1.1rem;\n      text-decoration: underline;\n      text-decoration-style: wavy;\n      text-decoration-color: var(--purple);\n      background: none;\n      border: none;\n      color: var(--ink);\n    }\n\n    .hero-illustration {\n      position: relative;\n    }\n\n    .portrait-ring {\n      position: relative;\n      width: 100%;\n      max-width: 420px;\n      margin: 0 auto;\n    }\n\n    .portrait-ring svg.ring-deco {\n      position: absolute;\n      inset: -30px;\n      width: calc(100% + 60px);\n      height: calc(100% + 60px);\n      animation: spin 40s linear infinite;\n    }\n\n    @keyframes spin {\n      to {\n        transform: rotate(360deg);\n      }\n    }\n\n    .portrait-frame {\n      position: relative;\n      border-radius: 50%;\n      overflow: hidden;\n      aspect-ratio: 1/1;\n      border: 2.4px solid var(--ink);\n      box-shadow: 6px 8px 0 rgba(0, 0, 0, .07);\n    }\n\n    .portrait-frame img {\n      width: 100%;\n      height: 100%;\n      object-fit: cover;\n      filter: grayscale(.15) contrast(1.04);\n    }\n\n    .crown {\n      position: absolute;\n      top: -34px;\n      left: 50%;\n      transform: translateX(-50%) rotate(-6deg);\n      width: 54px;\n      z-index: 3;\n    }\n\n    .floating-code {\n      position: absolute;\n      background: #fff;\n      border: 1.5px solid var(--ink);\n      border-radius: 10px;\n      padding: 8px 14px;\n      font-family: 'Space Grotesk', monospace;\n      font-size: .78rem;\n      box-shadow: 3px 3px 0 rgba(0, 0, 0, .08);\n      z-index: 3;\n    }\n\n    .scroll-indicator {\n      position: absolute;\n      bottom: 26px;\n      left: 8vw;\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      gap: 6px;\n    }\n\n    .scroll-indicator span {\n      font-family: 'Kalam', cursive;\n      font-size: .95rem;\n      color: var(--ink-soft);\n    }\n\n    /* ---------- ABOUT ---------- */\n    .about-grid {\n      display: grid;\n      grid-template-columns: .72fr 1fr .72fr;\n      gap: 46px;\n      align-items: start;\n      margin-top: 50px;\n    }\n\n    .polaroid {\n      background: #fff;\n      padding: 14px 14px 48px;\n      box-shadow: 4px 6px 18px rgba(0, 0, 0, .13);\n      transform: rotate(-4deg);\n      position: relative;\n      width: 100%;\n      max-width: 270px;\n      transition: transform .35s ease, box-shadow .35s ease;\n    }\n\n    .polaroid:hover {\n      transform: rotate(-1deg) translateY(-6px);\n      box-shadow: 6px 12px 26px rgba(0, 0, 0, .18);\n    }\n\n    .polaroid img {\n      width: 100%;\n      aspect-ratio: 1/1.05;\n      object-fit: cover;\n      filter: grayscale(.4) contrast(1.05);\n    }\n\n    .polaroid .cap {\n      position: absolute;\n      bottom: 12px;\n      left: 0;\n      width: 100%;\n      text-align: center;\n      font-family: 'Caveat';\n      font-size: 1.3rem;\n      color: var(--ink-soft);\n    }\n\n    .tape {\n      position: absolute;\n      width: 70px;\n      height: 26px;\n      background: rgba(255, 230, 150, .6);\n      border: 1px solid rgba(0, 0, 0, .05);\n      top: -14px;\n      left: 50%;\n      transform: translateX(-50%) rotate(-3deg);\n      box-shadow: 0 2px 4px rgba(0, 0, 0, .1);\n      z-index: 2;\n    }\n\n    .about-copy p {\n      font-size: 1.1rem;\n      line-height: 1.75;\n      color: #3a3630;\n    }\n\n    .about-timeline {\n      list-style: none;\n      margin-top: 24px;\n    }\n\n    .about-timeline li {\n      position: relative;\n      padding-left: 28px;\n      padding-bottom: 22px;\n      border-left: 2px dashed var(--line);\n      margin-left: 6px;\n    }\n\n    .about-timeline li::before {\n      content: '';\n      position: absolute;\n      left: -7px;\n      top: 2px;\n      width: 12px;\n      height: 12px;\n      border-radius: 50%;\n      background: var(--blue);\n    }\n\n    .about-timeline li:last-child {\n      border-left: 2px dashed transparent;\n    }\n\n    .about-timeline b {\n      display: block;\n      font-size: .98rem;\n      font-family: 'Space Grotesk';\n    }\n\n    .about-timeline span {\n      color: var(--ink-soft);\n      font-size: .86rem;\n    }\n\n    .sticky-note {\n      background: var(--note);\n      padding: 26px;\n      box-shadow: 3px 5px 14px rgba(0, 0, 0, .12);\n      transform: rotate(2deg);\n      position: relative;\n      font-family: 'Kalam', cursive;\n      font-size: 1.02rem;\n      line-height: 1.6;\n      max-width: 300px;\n      transition: transform .3s ease, box-shadow .3s ease;\n    }\n\n    .sticky-note:hover {\n      transform: rotate(0deg) translateY(-8px) scale(1.02);\n      box-shadow: 4px 10px 24px rgba(0, 0, 0, .18);\n    }\n\n    .sticky-note .pin {\n      position: absolute;\n      top: -9px;\n      left: 22px;\n      width: 16px;\n      height: 16px;\n      background: var(--purple);\n      border-radius: 50%;\n      box-shadow: 0 3px 4px rgba(0, 0, 0, .3);\n      z-index: 2;\n    }\n\n    .sticky-note .avail {\n      color: #1f8b4d;\n      font-weight: 700;\n    }\n\n    .sticky-note .note-icon {\n      display: inline-flex;\n      vertical-align: -2px;\n      margin-right: 2px;\n    }\n\n    /* ---------- SKILLS ---------- */\n    #skills {\n      text-align: center;\n    }\n\n    .skills-orbit-wrap {\n      position: relative;\n      width: 100%;\n      max-width: 560px;\n      height: 520px;\n      margin: 60px auto 0;\n    }\n\n    .orbit-ring {\n      position: absolute;\n      border: 1.5px dashed var(--line);\n      border-radius: 50%;\n      top: 50%;\n      left: 50%;\n      transform: translate(-50%, -50%);\n    }\n\n    .orbit-center {\n      position: absolute;\n      top: 50%;\n      left: 50%;\n      transform: translate(-50%, -50%);\n      width: 88px;\n      height: 88px;\n      border-radius: 50%;\n      background: var(--ink);\n      color: #fff;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      font-family: 'Space Grotesk';\n      font-weight: 700;\n      font-size: 1.3rem;\n      box-shadow: 0 0 0 6px rgba(139, 92, 246, .1);\n    }\n\n    .skill-icon {\n      position: absolute;\n      width: 60px;\n      height: 60px;\n      border-radius: 50%;\n      background: #fff;\n      border: 1.5px solid var(--ink);\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      box-shadow: 2px 3px 0 rgba(0, 0, 0, .08);\n    }\n\n    .skills-notebook {\n      margin-top: 70px;\n      display: grid;\n      grid-template-columns: repeat(4, 1fr);\n      gap: 24px;\n      text-align: left;\n    }\n\n    .skill-card {\n      border: 1.5px solid var(--line);\n      border-radius: 14px;\n      padding: 20px;\n      background: #fff;\n      position: relative;\n      transition: transform .25s ease, box-shadow .25s ease;\n    }\n\n    .skill-card:hover {\n      transform: translateY(-5px);\n      box-shadow: 3px 6px 0 rgba(0, 0, 0, .06);\n    }\n\n    .skill-card b {\n      font-size: .92rem;\n      font-family: 'Space Grotesk';\n    }\n\n    .skill-head {\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      gap: 8px;\n    }\n\n    .skill-pct {\n      font-family: 'Space Grotesk';\n      font-size: .86rem;\n      color: var(--blue);\n      font-weight: 600;\n    }\n\n    .pencil-bar {\n      width: 100%;\n      height: 8px;\n      background: #eee;\n      border-radius: 6px;\n      margin-top: 12px;\n      overflow: hidden;\n      position: relative;\n    }\n\n    .pencil-bar i {\n      display: block;\n      height: 100%;\n      width: 0%;\n      border-radius: 6px;\n      background: repeating-linear-gradient(45deg, var(--blue), var(--blue) 4px, var(--purple) 4px, var(--purple) 8px);\n    }\n\n    /* ---------- EXPERIENCE ---------- */\n    .exp-timeline {\n      position: relative;\n      margin-top: 60px;\n      padding-left: 40px;\n      max-width: 760px;\n    }\n\n    .exp-item {\n      position: relative;\n      padding-bottom: 64px;\n    }\n\n    .exp-dot {\n      position: absolute;\n      left: -40px;\n      top: 4px;\n      width: 16px;\n      height: 16px;\n      border-radius: 50%;\n      background: var(--purple);\n      border: 3px solid var(--paper);\n      box-shadow: 0 0 0 2px var(--purple);\n    }\n\n    .exp-card {\n      background: #fff;\n      border: 1.5px solid var(--line);\n      border-radius: 14px;\n      padding: 24px 28px;\n      box-shadow: 3px 4px 0 rgba(0, 0, 0, .05);\n    }\n\n    .exp-card .role {\n      font-size: 1.15rem;\n      font-weight: 700;\n      font-family: 'Space Grotesk';\n    }\n\n    .exp-card .company {\n      color: var(--blue);\n      font-weight: 600;\n      font-size: .92rem;\n    }\n\n    .exp-card .period {\n      font-family: 'Kalam', cursive;\n      color: var(--ink-soft);\n      font-size: .92rem;\n      float: right;\n    }\n\n    .exp-card p {\n      color: #555;\n      font-size: .92rem;\n      margin-top: 8px;\n      line-height: 1.55;\n    }\n\n    /* ---------- PROJECTS ---------- */\n    .projects-bento {\n      display: grid;\n      grid-template-columns: repeat(3, 1fr);\n      gap: 26px;\n      margin-top: 55px;\n    }\n\n    .project-card {\n      background: #fff;\n      border: 1.5px solid var(--ink);\n      border-radius: 16px;\n      overflow: hidden;\n      position: relative;\n      box-shadow: 5px 6px 0 rgba(0, 0, 0, .06);\n      transform-style: preserve-3d;\n    }\n\n    .project-thumb {\n      position: relative;\n      height: 190px;\n      overflow: hidden;\n      background: var(--paper-2);\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);\n      transition: clip-path .55s cubic-bezier(.6, 0, .3, 1);\n    }\n\n    .project-card:hover .project-thumb {\n      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);\n    }\n\n    .project-thumb svg {\n      width: 64%;\n      height: 64%;\n    }\n\n    .project-body {\n      padding: 22px;\n    }\n\n    .project-body .num {\n      font-family: 'Caveat', cursive;\n      color: var(--purple);\n      font-size: 1.2rem;\n    }\n\n    .project-body h3 {\n      font-size: 1.25rem;\n      margin-top: 2px;\n    }\n\n    .project-body p {\n      color: var(--ink-soft);\n      font-size: .9rem;\n      margin-top: 8px;\n      line-height: 1.5;\n    }\n\n    .tags {\n      display: flex;\n      gap: 8px;\n      margin-top: 14px;\n      flex-wrap: wrap;\n    }\n\n    .tag {\n      font-size: .72rem;\n      border: 1px solid var(--line);\n      border-radius: 20px;\n      padding: 4px 12px;\n      color: var(--ink-soft);\n      font-family: 'Kalam', cursive;\n    }\n\n    .live-demo {\n      margin-top: 14px;\n      font-family: 'Kalam', cursive;\n      color: var(--blue);\n      font-size: .94rem;\n      display: inline-flex;\n      align-items: center;\n      gap: 6px;\n      text-decoration: none;\n    }\n\n    @media(max-width:900px) {\n      .projects-bento {\n        grid-template-columns: 1fr;\n      }\n    }\n\n    /* ---------- PROCESS ---------- */\n    #process {\n      text-align: center;\n    }\n\n    .process-wrap {\n      position: relative;\n      margin-top: 70px;\n    }\n\n    .process-path-svg {\n      width: 100%;\n      height: 170px;\n    }\n\n    .process-steps {\n      display: grid;\n      grid-template-columns: repeat(5, 1fr);\n      gap: 20px;\n      margin-top: -40px;\n      text-align: center;\n    }\n\n    .process-step .icon {\n      color: var(--blue);\n      display: flex;\n      justify-content: center;\n    }\n\n    .process-step b {\n      display: block;\n      margin-top: 8px;\n      font-size: .92rem;\n      font-family: 'Space Grotesk';\n    }\n\n    .process-step p {\n      color: var(--ink-soft);\n      font-size: .8rem;\n      margin-top: 5px;\n      line-height: 1.4;\n    }\n\n    @media(max-width:760px) {\n      .process-steps {\n        grid-template-columns: repeat(2, 1fr);\n      }\n\n      .process-path-svg {\n        display: none;\n      }\n    }\n\n    /* ---------- TESTIMONIALS ---------- */\n    .testi-wrap {\n      max-width: 640px;\n      margin: 50px auto 0;\n      text-align: center;\n      position: relative;\n    }\n\n    .speech-bubble {\n      border: 1.5px solid var(--ink);\n      border-radius: 20px;\n      padding: 32px 34px;\n      position: relative;\n      background: #fff;\n      box-shadow: 4px 5px 0 rgba(0, 0, 0, .06);\n      min-height: 150px;\n    }\n\n    .speech-bubble::after {\n      content: '';\n      position: absolute;\n      bottom: -18px;\n      left: 50px;\n      width: 0;\n      height: 0;\n      border: 12px solid transparent;\n      border-top-color: var(--ink);\n      border-bottom: 0;\n    }\n\n    .speech-bubble::before {\n      content: '\"';\n      position: absolute;\n      top: -6px;\n      left: 20px;\n      font-size: 3.6rem;\n      color: var(--purple);\n      font-family: Georgia, serif;\n      opacity: .3;\n    }\n\n    .speech-bubble p {\n      font-size: 1.05rem;\n      line-height: 1.6;\n    }\n\n    .signature {\n      margin-top: 20px;\n      font-family: 'Caveat', cursive;\n      font-size: 1.5rem;\n      color: var(--blue);\n      text-align: left;\n      padding-left: 60px;\n    }\n\n    .signature span {\n      display: block;\n      font-family: 'Inter', sans-serif;\n      font-size: .78rem;\n      color: var(--ink-soft);\n    }\n\n    .testi-dots {\n      display: flex;\n      gap: 8px;\n      justify-content: center;\n      margin-top: 22px;\n    }\n\n    .testi-dots span {\n      width: 8px;\n      height: 8px;\n      border-radius: 50%;\n      background: var(--line);\n      cursor: pointer;\n    }\n\n    .testi-dots span.active {\n      background: var(--purple);\n    }\n\n    /* ---------- FUN FACTS ---------- */\n    .facts-strip {\n      background: transparent;\n      padding: 70px 40px;\n      display: grid;\n      grid-template-columns: repeat(4, 1fr);\n      gap: 20px;\n      position: relative;\n      margin-top: 40px;\n      min-height: 340px;\n      align-items: center;\n    }\n\n    .facts-blob {\n      position: absolute;\n      inset: 0;\n      width: 100%;\n      height: 100%;\n      fill: var(--ink);\n      z-index: 0;\n    }\n\n    .fact {\n      text-align: center;\n      color: #fff;\n      position: relative;\n      z-index: 2;\n    }\n\n    .fact-icon {\n      color: #fff;\n      opacity: .85;\n      display: flex;\n      justify-content: center;\n      margin-bottom: 10px;\n    }\n\n    .fact .count {\n      font-size: 2.5rem;\n      font-weight: 700;\n      color: #fff;\n      font-family: 'Space Grotesk';\n    }\n\n    .fact .label {\n      font-family: 'Kalam', cursive;\n      color: #c9c9c9;\n      margin-top: 6px;\n      font-size: .92rem;\n    }\n\n    @media(max-width:700px) {\n      .facts-strip {\n        grid-template-columns: repeat(2, 1fr);\n        row-gap: 40px;\n      }\n    }\n\n    /* ---------- CONTACT ---------- */\n    .contact-grid {\n      display: grid;\n      grid-template-columns: 1.1fr .85fr;\n      gap: 56px;\n      margin-top: 50px;\n    }\n\n    .notebook-form {\n      background: #fff;\n      border: 1.5px solid var(--line);\n      border-radius: 16px;\n      padding: 36px;\n      background-image: repeating-linear-gradient(180deg, transparent, transparent 42px, #e7e5db 43px);\n      position: relative;\n    }\n\n    .notebook-form::before {\n      content: '';\n      position: absolute;\n      left: 44px;\n      top: 0;\n      bottom: 0;\n      width: 1.4px;\n      background: #e8a0a0;\n      opacity: .55;\n    }\n\n    .notebook-form label {\n      font-family: 'Kalam', cursive;\n      color: var(--ink-soft);\n      font-size: .9rem;\n      display: block;\n      margin-left: 18px;\n    }\n\n    .notebook-form input,\n    .notebook-form textarea {\n      width: calc(100% - 18px);\n      margin-left: 18px;\n      border: none;\n      background: transparent;\n      font-family: 'Inter';\n      font-size: 1.02rem;\n      padding: 8px 0 14px;\n      outline: none;\n      color: var(--ink);\n    }\n\n    .send-btn {\n      margin-top: 14px;\n      margin-left: 18px;\n      border: 1.5px solid var(--ink);\n      border-radius: 30px;\n      padding: 14px 28px;\n      background: transparent;\n      font-weight: 600;\n      position: relative;\n      font-family: 'Inter';\n      box-shadow: 4px 4px 0 var(--blue);\n      transition: transform .2s, box-shadow .2s;\n    }\n\n    .send-btn:hover {\n      transform: translate(2px, 2px);\n      box-shadow: 2px 2px 0 var(--blue);\n    }\n\n    .social-hand {\n      display: flex;\n      gap: 18px;\n      margin-top: 22px;\n    }\n\n    .social-hand a {\n      width: 48px;\n      height: 48px;\n      border: 1.5px solid var(--ink);\n      border-radius: 50%;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      text-decoration: none;\n      transition: all .3s;\n    }\n\n    .social-hand a:hover {\n      background: var(--ink);\n      color: #fff;\n      transform: rotate(-8deg) scale(1.1);\n    }\n\n    footer {\n      text-align: center;\n      padding: 40px;\n      color: var(--ink-soft);\n      font-family: 'Kalam', cursive;\n      font-size: .95rem;\n      position: relative;\n      z-index: 1;\n    }\n\n    @media(max-width:900px) {\n\n      .hero-grid,\n      .about-grid,\n      .contact-grid {\n        grid-template-columns: 1fr;\n      }\n\n      section {\n        padding: 110px 6vw 40px;\n      }\n    }\n  \n\n/* ---------- SKELETON LOADER ---------- */\n    @keyframes skShimmer {\n      0%{background-position:-400px 0}\n      100%{background-position:400px 0}\n    }\n    .sk-card { pointer-events:none; }\n    .sk-thumb {\n      height:190px;\n      background: linear-gradient(90deg,#eee 25%,#e0e0e0 50%,#eee 75%);\n      background-size:800px 100%;\n      animation: skShimmer 1.4s infinite;\n    }\n    .sk-line {\n      height:14px; border-radius:6px; margin:10px 0;\n      background: linear-gradient(90deg,#eee 25%,#e0e0e0 50%,#eee 75%);\n      background-size:800px 100%;\n      animation: skShimmer 1.4s infinite;\n    }\n    .sk-w40{width:40%} .sk-w60{width:60%} .sk-w80{width:80%}\n    #projects-empty {\n      grid-column: 1/-1; text-align:center; padding:60px 20px;\n      color:#aaa; font-size:1.1rem;\n    }\n\n/* === FIXES === */\nfooter {\n  display: flex !important;\n  flex-wrap: wrap;\n  align-items: center;\n  justify-content: center;\n  gap: 6px;\n}\nfooter svg { display: inline-block; vertical-align: middle; }\n/* project cards: pointer + full-card link feel */\n.project-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }\n\n/* =====================================================\n   COMPREHENSIVE RESPONSIVE STYLES\n   ===================================================== */\n\n/* ---- MOBILE HAMBURGER MENU ---- */\n.hamburger {\n  display: none;\n  flex-direction: column;\n  gap: 5px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  padding: 6px;\n  z-index: 600;\n}\n.hamburger span {\n  display: block;\n  width: 24px;\n  height: 2px;\n  background: var(--ink);\n  border-radius: 2px;\n  transition: transform 0.3s ease, opacity 0.3s ease;\n}\n.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }\n.hamburger.open span:nth-child(2) { opacity: 0; }\n.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }\n\n.mobile-nav {\n  display: none;\n  position: fixed;\n  inset: 0;\n  background: var(--paper);\n  z-index: 490;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  gap: 36px;\n  opacity: 0;\n  pointer-events: none;\n  transition: opacity 0.35s ease;\n}\n.mobile-nav.open {\n  opacity: 1;\n  pointer-events: all;\n}\n.mobile-nav a {\n  font-family: 'Space Grotesk', sans-serif;\n  font-size: 2rem;\n  font-weight: 700;\n  text-decoration: none;\n  color: var(--ink);\n}\n.mobile-nav .talk-btn {\n  margin-top: 12px;\n}\n\n/* ---- TABLET (max 1024px) ---- */\n@media (max-width: 1024px) {\n  .skills-notebook {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .about-grid {\n    grid-template-columns: 1fr 1.4fr;\n    gap: 32px;\n  }\n  .about-grid > div:last-child {\n    grid-column: 1 / -1;\n    display: flex;\n    justify-content: center;\n  }\n  .sticky-note {\n    max-width: 100%;\n  }\n  .contact-grid {\n    grid-template-columns: 1fr;\n    gap: 36px;\n  }\n  .projects-bento {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .process-steps {\n    grid-template-columns: repeat(3, 1fr);\n  }\n}\n\n/* ---- MOBILE (max 768px) ---- */\n@media (max-width: 768px) {\n  /* Disable custom cursor on touch */\n  #cursor-dot, #cursor-ring, #cursor-pencil, canvas#ink-trail, #airplane {\n    display: none !important;\n  }\n  body { cursor: auto !important; }\n\n  /* Nav */\n  .hamburger { display: flex; }\n  .nav-links { display: none !important; }\n  .talk-btn { display: none; }\n  .mobile-nav { display: flex; }\n  nav { padding: 16px 5vw; }\n  .logo { font-size: 1.6rem; }\n\n  /* Section spacing */\n  section { padding: 100px 5vw 40px; }\n\n  /* Hero */\n  #hero { padding-top: 90px; min-height: 100dvh; }\n  .hero-grid {\n    grid-template-columns: 1fr;\n    gap: 40px;\n    text-align: center;\n  }\n  .hero-title { font-size: clamp(2.2rem, 8vw, 3.2rem); }\n  .hero-sub { margin: 16px auto 0; font-size: 1rem; max-width: 100%; }\n  .hero-ctas { justify-content: center; gap: 14px; }\n  .hey-badge { margin: 0 auto 20px; }\n  .hero-illustration { order: -1; }\n  .portrait-ring { max-width: 260px; margin: 0 auto; }\n  .floating-code { display: none; }\n  .scroll-indicator { left: 50%; transform: translateX(-50%); }\n\n  /* About */\n  .about-grid {\n    grid-template-columns: 1fr;\n    gap: 32px;\n  }\n  .about-grid > div:first-child {\n    display: flex;\n    justify-content: center;\n  }\n  .polaroid { max-width: 220px; margin: 0 auto; }\n  .about-copy p { font-size: 1rem; }\n  .about-grid > div:last-child {\n    grid-column: auto;\n    display: flex;\n    justify-content: center;\n  }\n  .sticky-note { max-width: 100%; font-size: .95rem; }\n\n  /* Skills */\n  .skills-orbit-wrap {\n    max-width: 320px;\n    height: 320px;\n  }\n  .skills-notebook {\n    grid-template-columns: 1fr 1fr;\n    gap: 14px;\n  }\n  .skill-card { padding: 14px; }\n\n  /* Experience */\n  .exp-timeline { padding-left: 28px; }\n  .exp-card { padding: 18px 20px; }\n  .exp-card .period { float: none; display: block; margin-bottom: 6px; }\n  .exp-card .role { font-size: 1.05rem; }\n\n  /* Projects */\n  .projects-bento { grid-template-columns: 1fr; gap: 20px; }\n  .project-thumb { height: 160px; }\n\n  /* Process */\n  .process-steps {\n    grid-template-columns: repeat(2, 1fr);\n    gap: 24px;\n    margin-top: 20px;\n  }\n  .process-path-svg { display: none; }\n\n  /* Testimonials */\n  .speech-bubble { padding: 24px 22px; }\n  .speech-bubble p { font-size: .97rem; }\n  .signature { padding-left: 30px; }\n\n  /* Facts */\n  .facts-strip {\n    grid-template-columns: repeat(2, 1fr);\n    padding: 50px 24px;\n    row-gap: 36px;\n    min-height: auto;\n  }\n\n  /* Contact */\n  .contact-grid { grid-template-columns: 1fr; gap: 30px; }\n  .notebook-form { padding: 24px 20px; }\n  .notebook-form input,\n  .notebook-form textarea { width: calc(100% - 10px); margin-left: 10px; }\n  .notebook-form label { margin-left: 10px; }\n  .send-btn { margin-left: 10px; }\n  .social-hand { gap: 14px; }\n\n  /* Section titles */\n  .section-title { font-size: clamp(1.7rem, 6vw, 2.4rem); }\n\n  /* Footer */\n  footer { padding: 28px 20px; font-size: .88rem; }\n}\n\n/* ---- SMALL MOBILE (max 430px) ---- */\n@media (max-width: 430px) {\n  section { padding: 90px 4vw 30px; }\n  .hero-title { font-size: clamp(2rem, 9vw, 2.8rem); }\n  .skills-notebook { grid-template-columns: 1fr; }\n  .facts-strip {\n    grid-template-columns: 1fr 1fr;\n    padding: 40px 16px;\n  }\n  .portrait-ring { max-width: 220px; }\n  .btn-sketch { padding: 14px 22px; font-size: .92rem; }\n  .about-timeline li { font-size: .88rem; }\n  .exp-card p { font-size: .88rem; }\n  .process-steps { grid-template-columns: 1fr; }\n  .projects-bento { gap: 16px; }\n}\n\n</style>\n</head>\n<body>\n\n  <!-- PAGE LOAD FOLD INTRO -->\n  <div id=\"intro\">\n    <div class=\"fold-panel fold-left\"><svg viewBox=\"0 0 100 100\">\n        <path d=\"M10 90 Q50 10 90 90\" stroke=\"#181410\" stroke-width=\"1\" fill=\"none\" />\n      </svg></div>\n    <div class=\"fold-panel fold-right\"><svg viewBox=\"0 0 100 100\">\n        <path d=\"M10 10 Q50 90 90 10\" stroke=\"#181410\" stroke-width=\"1\" fill=\"none\" />\n      </svg></div>\n    <div id=\"intro-mark\">unfolding a new page...</div>\n  </div>\n\n  <div id=\"grain\"></div>\n  <canvas id=\"ink-trail\"></canvas>\n  <div id=\"cursor-dot\"></div>\n  <div id=\"cursor-ring\"></div>\n  <div id=\"cursor-pencil\"><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\"\n      stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n      <path d=\"M12 20h9\" />\n      <path d=\"M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z\" />\n    </svg></div>\n  <div id=\"airplane\"><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\"\n      stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n      <path d=\"m21 3-9 18-2-8-8-2Z\" />\n      <path d=\"M21 3 11 13\" />\n    </svg></div>\n\n  <!-- ambient paper texture decorations -->\n  <svg class=\"coffee-stain\" style=\"top:1180px;right:4vw;width:140px;\" viewBox=\"0 0 140 140\">\n    <circle cx=\"70\" cy=\"70\" r=\"60\" fill=\"none\" stroke=\"#8a6b4a\" stroke-width=\"3\" opacity=\".35\" />\n    <circle cx=\"70\" cy=\"70\" r=\"48\" fill=\"none\" stroke=\"#8a6b4a\" stroke-width=\"1.4\" opacity=\".3\" />\n  </svg>\n  <svg class=\"coffee-stain\" style=\"top:3800px;left:2vw;width:100px;\" viewBox=\"0 0 100 100\">\n    <circle cx=\"50\" cy=\"50\" r=\"42\" fill=\"none\" stroke=\"#8a6b4a\" stroke-width=\"2.4\" opacity=\".3\" />\n  </svg>\n  <div class=\"washi-tape\" style=\"top:2550px;left:6vw;width:90px;height:28px;transform:rotate(6deg);\"></div>\n  <div class=\"washi-tape\"\n    style=\"top:5200px;right:8vw;width:80px;height:26px;transform:rotate(-8deg);background:rgba(59,91,255,.14);\"></div>\n\n  <nav>\n    <div class=\"logo interactive\">HamzaK.</div>\n    <ul class=\"nav-links\">\n      <li><a href=\"#hero\" class=\"magnetic interactive\">Home</a></li>\n      <li><a href=\"#about\" class=\"magnetic interactive\">About</a></li>\n      <li><a href=\"#skills\" class=\"magnetic interactive\">Skills</a></li>\n      <li><a href=\"#projects\" class=\"magnetic interactive\">Projects</a></li>\n      <li><a href=\"#experience\" class=\"magnetic interactive\">Experience</a></li>\n      <li><a href=\"#contact\" class=\"magnetic interactive\">Contact</a></li>\n    </ul>\n    <button class=\"talk-btn magnetic interactive\"><span>Let's Talk \u2192</span></button>\n    <button class=\"hamburger\" id=\"hamburger\" aria-label=\"Toggle menu\"><span></span><span></span><span></span></button>\n  </nav>\n  <div class=\"mobile-nav\" id=\"mobile-nav\"><a href=\"#hero\">Home</a><a href=\"#about\">About</a><a href=\"#skills\">Skills</a><a href=\"#projects\">Projects</a><a href=\"#experience\">Experience</a><a href=\"#contact\">Contact</a><button class=\"talk-btn\"><span>Let\u2019s Talk \u2192</span></button></div>\n\n  <main>\n\n    <!-- HERO -->\n    <section id=\"hero\">\n      <div class=\"container hero-grid\">\n        <div>\n          <div class=\"hey-badge\">Hey there! <span><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\"\n                stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n                <path\n                  d=\"M18 12.5V7a2 2 0 0 0-4 0v-1a2 2 0 0 0-4 0v1a2 2 0 0 0-4 0v6.5c0 3.5 2.5 6.5 6 6.5h1c3 0 5-2 5-4.5V9a2 2 0 0 0-4 0\" />\n                <path d=\"M6 11.5 4.6 10a1.6 1.6 0 0 1 2.3-2.3L8 8.8\" />\n              </svg></span></div>\n          <h1 class=\"hero-title\">I'm <span class=\"hand\">Hamza</span><br>I build digital<br>experiences.</h1>\n          <p class=\"hero-sub\">Full-stack developer crafting modern, fast and accessible web experiences \u2014 one sketch,\n            one commit at a time.</p>\n          <div class=\"hero-ctas\">\n            <button class=\"btn-sketch magnetic interactive\" id=\"viewwork-btn\" onclick=\"(function(){var el=document.getElementById('projects');if(el){if(window.lenis){window.lenis.scrollTo(el,{offset:-80});}else{el.scrollIntoView({behavior:'smooth'});}}})();\">\n              <svg class=\"outline\" viewBox=\"0 0 220 60\" preserveAspectRatio=\"none\">\n                <path id=\"btn-path\" d=\"M10,30 Q5,5 40,8 Q120,2 200,10 Q215,15 210,30 Q215,50 180,52 Q100,58 20,50 Q3,48 10,30 Z\" />\n              </svg>\n              <svg class=\"fill-outline\" viewBox=\"0 0 220 60\" preserveAspectRatio=\"none\">\n                <path d=\"M10,30 Q5,5 40,8 Q120,2 200,10 Q215,15 210,30 Q215,50 180,52 Q100,58 20,50 Q3,48 10,30 Z\" />\n              </svg>\n              <span>View My Work \u2192</span>\n            </button>\n            <a id=\"resume-btn\" class=\"btn-ghost magnetic interactive\" style=\"text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--purple);background:none;border:none;color:var(--ink);font-family:Kalam,cursive;font-size:1.1rem;cursor:pointer;\" href=\"#\" download>Download Resume</a>\n          </div>\n        </div>\n        <div class=\"hero-illustration\">\n          <div class=\"portrait-ring\">\n            <svg class=\"ring-deco\" viewBox=\"0 0 100 100\">\n              <circle cx=\"50\" cy=\"50\" r=\"48\" fill=\"none\" stroke=\"#8B5CF6\" stroke-width=\".6\" stroke-dasharray=\"2 6\" />\n            </svg>\n            <svg class=\"crown\" viewBox=\"0 0 60 30\">\n              <path d=\"M2 26 L10 4 L20 22 L30 2 L40 22 L50 4 L58 26 Z\" fill=\"none\" stroke=\"#8B5CF6\" stroke-width=\"2.4\"\n                stroke-linejoin=\"round\" />\n            </svg>\n            <div class=\"portrait-frame\">\n              <img src=\"/portfolio/Hamza.jpg\" alt=\"Hamza\" id=\"dev-photo\" />\n            </div>\n            <div class=\"floating-code\" style=\"top:2%;left:-14%;\" data-depth=\"0.6\"><span\n                style=\"color:#3B5BFF\">const</span> skills = [\"JS\",\"React\"]</div>\n            <div class=\"floating-code\" style=\"top:44%;right:-18%;\" data-depth=\"0.4\">function build(){ return magic() }\n            </div>\n            <div class=\"floating-code\" style=\"bottom:2%;left:-10%;\" data-depth=\"0.5\">git commit -m \"\u2728 feature\"</div>\n          </div>\n        </div>\n      </div>\n      <div class=\"scroll-indicator\">\n        <span>Scroll</span>\n        <svg width=\"20\" height=\"50\" viewBox=\"0 0 20 50\">\n          <path id=\"scroll-path\" d=\"M10,0 L10,40 M2,32 L10,42 L18,32\" fill=\"none\" stroke=\"#181410\" stroke-width=\"2\"\n            stroke-linecap=\"round\" />\n        </svg>\n      </div>\n    </section>\n\n    <!-- ABOUT -->\n    <section id=\"about\">\n      <div class=\"container\">\n        <div class=\"section-tag reveal\">\u2726 Get to know me</div>\n        <h2 class=\"section-title reveal\">About <span class=\"underline-scribble hand\" style=\"color:var(--purple)\">me\n            <svg viewBox=\"0 0 100 20\">\n              <path d=\"M2,15 Q50,25 98,10\" stroke=\"#8B5CF6\" stroke-width=\"3\" fill=\"none\" stroke-linecap=\"round\" />\n            </svg>\n          </span></h2>\n\n        <div class=\"about-grid\">\n          <div>\n            <div class=\"polaroid reveal\">\n              <div class=\"tape\"></div>\n              <img src=\"/portfolio/Hamza.jpg\" alt=\"Hamza\" />\n              <div class=\"cap\">it's me!</div>\n            </div>\n          </div>\n          <div class=\"about-copy reveal\">\n            <p>I'm a passionate full-stack developer based in India. I love turning ideas into reality using code, and\n              creating impactful digital solutions. Always curious, always learning \u2014 I sketch out problems before I\n              solve them in code.</p>\n            <ul class=\"about-timeline\">\n              <li><b>2021 \u2014 Started coding journey</b><span>Learned HTML, CSS & JS fundamentals</span></li>\n              <li><b>2022 \u2014 First internship</b><span>Frontend development at a startup</span></li>\n              <li><b>2023 \u2014 Full stack role</b><span>Building end-to-end products with React & Node</span></li>\n              <li><b>2026 \u2014 Freelance & open source</b><span>Crafting products, mentoring, shipping ideas</span></li>\n            </ul>\n          </div>\n          <div class=\"reveal\" style=\"position:relative;\">\n            <div class=\"sticky-note\">\n              <div class=\"pin\"></div>\n              <span class=\"note-icon\"><svg viewBox=\"0 0 24 24\" width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\"\n                  stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n                  <path d=\"M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z\" />\n                  <circle cx=\"12\" cy=\"10\" r=\"3\" />\n                </svg></span> India<br>\n              <span class=\"avail\">\u25cf Available for work</span><br>\n              Remote / Onsite<br>\n              <span class=\"note-icon\"><svg viewBox=\"0 0 24 24\" width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\"\n                  stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n                  <rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\" />\n                  <path d=\"m22 6-10 7L2 6\" />\n                </svg></span> Hamza@dev.com\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n\n    <!-- SKILLS -->\n    <section id=\"skills\">\n      <div class=\"container\">\n        <div class=\"section-tag reveal\" style=\"justify-content:center;\">\u2726 What I work with</div>\n        <h2 class=\"section-title reveal\">Skills <span class=\"hand\" style=\"color:var(--blue);\">I use</span></h2>\n\n        <div class=\"skills-orbit-wrap reveal\" id=\"orbit-wrap\">\n          <div class=\"orbit-center\">&lt;/&gt;</div>\n        </div>\n\n        <div class=\"skills-notebook\">\n          <div class=\"skill-card reveal\">\n            <div class=\"skill-head\"><b>JavaScript / TypeScript</b><span class=\"skill-pct\" data-w=\"92\">0%</span></div>\n            <div class=\"pencil-bar\"><i data-w=\"92\"></i></div>\n          </div>\n          <div class=\"skill-card reveal\">\n            <div class=\"skill-head\"><b>React / Next.js</b><span class=\"skill-pct\" data-w=\"95\">0%</span></div>\n            <div class=\"pencil-bar\"><i data-w=\"95\"></i></div>\n          </div>\n          <div class=\"skill-card reveal\">\n            <div class=\"skill-head\"><b>Node.js / Express</b><span class=\"skill-pct\" data-w=\"88\">0%</span></div>\n            <div class=\"pencil-bar\"><i data-w=\"88\"></i></div>\n          </div>\n          <div class=\"skill-card reveal\">\n            <div class=\"skill-head\"><b>Databases / DevOps</b><span class=\"skill-pct\" data-w=\"80\">0%</span></div>\n            <div class=\"pencil-bar\"><i data-w=\"80\"></i></div>\n          </div>\n        </div>\n      </div>\n    </section>\n\n    <!-- EXPERIENCE -->\n    <section id=\"experience\">\n      <div class=\"container\">\n        <div class=\"section-tag reveal\">\u2726 My journey so far</div>\n        <h2 class=\"section-title reveal\">Experience</h2>\n\n        <div class=\"exp-timeline\">\n          <svg style=\"position:absolute;left:0;top:0;overflow:visible;\" width=\"4\" height=\"100%\">\n            <line id=\"exp-vline\" x1=\"2\" y1=\"0\" x2=\"2\" y2=\"0\" stroke=\"#8B5CF6\" stroke-width=\"2\" stroke-dasharray=\"6 6\" />\n          </svg>\n          <div class=\"exp-item reveal\">\n            <div class=\"exp-dot\"></div>\n            <div class=\"exp-card\">\n              <span class=\"period\">2025 \u2014 Present</span>\n              <div class=\"role\">Full Stack Developer</div>\n              <div class=\"company\">Freelance</div>\n              <p>Building end-to-end web products for clients \u2014 from sketch to deployment.</p>\n            </div>\n          </div>\n          <div class=\"exp-item reveal\">\n            <div class=\"exp-dot\"></div>\n            <div class=\"exp-card\">\n              <span class=\"period\">2023 \u2014 2025</span>\n              <div class=\"role\">Software Engineer</div>\n              <div class=\"company\">TechNova Labs</div>\n              <p>Built and scaled internal tools and customer-facing dashboards for a fast-growing SaaS product.</p>\n            </div>\n          </div>\n          <div class=\"exp-item reveal\">\n            <div class=\"exp-dot\"></div>\n            <div class=\"exp-card\">\n              <span class=\"period\">2022 \u2014 2023</span>\n              <div class=\"role\">Frontend Intern</div>\n              <div class=\"company\">PixelWorks</div>\n              <p>Learned the ropes of production-grade React applications and design systems.</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n\n    <!-- PROJECTS -->\n    <section id=\"projects\">\n      <div class=\"container\">\n        <div class=\"section-tag reveal\">\u2726 Selected work</div>\n        <h2 class=\"section-title reveal\">Featured <span class=\"hand\" style=\"color:var(--purple);\">projects</span></h2>\n\n        <div class=\"projects-bento\" id=\"projects-grid\">\n          <div class=\"project-card sk-card\"><div class=\"sk-thumb\"></div><div class=\"project-body\"><div class=\"sk-line sk-w60\"></div><div class=\"sk-line sk-w40\"></div><div class=\"sk-line sk-w80\"></div></div></div>\n          <div class=\"project-card sk-card\"><div class=\"sk-thumb\"></div><div class=\"project-body\"><div class=\"sk-line sk-w60\"></div><div class=\"sk-line sk-w40\"></div><div class=\"sk-line sk-w80\"></div></div></div>\n          <div class=\"project-card sk-card\"><div class=\"sk-thumb\"></div><div class=\"project-body\"><div class=\"sk-line sk-w60\"></div><div class=\"sk-line sk-w40\"></div><div class=\"sk-line sk-w80\"></div></div></div>\n        </div>\n        </div>\n      </div>\n    </section>\n\n    <!-- PROCESS -->\n    <section id=\"process\">\n      <div class=\"container\">\n        <div class=\"section-tag reveal\" style=\"justify-content:center;\">\u2726 How I work</div>\n        <h2 class=\"section-title reveal\">My <span class=\"hand\" style=\"color:var(--blue);\">process</span></h2>\n        <div class=\"process-wrap reveal\">\n          <svg class=\"process-path-svg\" viewBox=\"0 0 1000 120\" preserveAspectRatio=\"none\">\n            <path id=\"process-dotted\" d=\"M20,60 Q150,10 250,60 T500,60 T750,60 T980,60\" fill=\"none\" stroke=\"#c9c6bb\"\n              stroke-width=\"2\" stroke-dasharray=\"2 10\" stroke-linecap=\"round\" />\n            <path id=\"process-pencil-path\" d=\"M20,60 Q150,10 250,60 T500,60 T750,60 T980,60\" fill=\"none\"\n              stroke=\"none\" />\n            <text id=\"process-pencil-dot\" x=\"20\" y=\"66\" font-size=\"22\">\u270e</text>\n          </svg>\n          <div class=\"process-steps\">\n            <div class=\"process-step reveal\">\n              <div class=\"icon\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"none\" stroke=\"currentColor\"\n                  stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n                  <path d=\"M9 18h6\" />\n                  <path d=\"M10 22h4\" />\n                  <path d=\"M12 2a7 7 0 0 0-4 12.7c.7.5 1 1.3 1 2.1V17h6v-2.2c0-.8.3-1.6 1-2.1A7 7 0 0 0 12 2Z\" />\n                </svg></div><b>01. Idea</b>\n              <p>Understanding the problem & brainstorming ideas.</p>\n            </div>\n            <div class=\"process-step reveal\">\n              <div class=\"icon\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"none\" stroke=\"currentColor\"\n                  stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n                  <path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z\" />\n                  <path d=\"M14 2v6h6\" />\n                  <path d=\"M9 15h6\" />\n                  <path d=\"M9 11h3\" />\n                </svg></div><b>02. Plan</b>\n              <p>Planning the structure, tech and workflow.</p>\n            </div>\n            <div class=\"process-step reveal\">\n              <div class=\"icon\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"none\" stroke=\"currentColor\"\n                  stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n                  <rect x=\"2\" y=\"6\" width=\"20\" height=\"13\" rx=\"2\" />\n                  <path d=\"M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10\" />\n                </svg></div><b>03. Build</b>\n              <p>Writing clean code & bringing ideas to life.</p>\n            </div>\n            <div class=\"process-step reveal\">\n              <div class=\"icon\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"none\" stroke=\"currentColor\"\n                  stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n                  <path d=\"M9 3h6\" />\n                  <path d=\"M10 3v5.5L5 18a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9.5V3\" />\n                  <path d=\"M7.5 15h9\" />\n                </svg></div><b>04. Test</b>\n              <p>Testing for quality and performance.</p>\n            </div>\n            <div class=\"process-step reveal\">\n              <div class=\"icon\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"none\" stroke=\"currentColor\"\n                  stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n                  <path d=\"M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z\" />\n                  <path\n                    d=\"M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 20 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z\" />\n                  <path d=\"M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0\" />\n                  <path d=\"M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5\" />\n                </svg></div><b>05. Launch</b>\n              <p>Deploying and making an impact.</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n\n    <!-- TESTIMONIALS -->\n    <section id=\"testimonials\">\n      <div class=\"container\">\n        <div class=\"section-tag reveal\">\u2726 Kind words</div>\n        <h2 class=\"section-title reveal\">What people <span class=\"hand\" style=\"color:var(--purple);\">say</span></h2>\n        <div class=\"testi-wrap reveal\">\n          <div class=\"speech-bubble\">\n            <p id=\"testi-text\">Hamza is a fantastic developer who delivered beyond expectations and communicated\n              perfectly throughout the project.</p>\n            <div class=\"signature\" id=\"testi-sign\">Sarah J.<span id=\"testi-role\">Product Manager, Nimbus Labs</span>\n            </div>\n          </div>\n          <div class=\"testi-dots\" id=\"testi-dots\">\n            <span class=\"active\" data-i=\"0\"></span><span data-i=\"1\"></span><span data-i=\"2\"></span>\n          </div>\n        </div>\n      </div>\n    </section>\n\n    <!-- FUN FACTS -->\n    <section id=\"facts\">\n      <div class=\"container\">\n        <div class=\"facts-strip reveal\">\n          <svg class=\"facts-blob\" viewBox=\"0 0 1200 420\" preserveAspectRatio=\"none\">\n            <path\n              d=\"M45,190 C15,120 55,45 165,38 C330,10 540,42 720,26 C900,10 1105,15 1155,90 C1190,145 1175,195 1150,225 C1180,255 1185,320 1140,355 C1040,400 850,380 690,392 C520,405 340,400 190,378 C70,360 30,320 40,270 C-10,245 5,205 45,190 Z\" />\n          </svg>\n          <div class=\"fact\">\n            <div class=\"fact-icon\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"none\" stroke=\"currentColor\"\n                stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n                <path d=\"M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z\" />\n                <path\n                  d=\"M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 20 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z\" />\n                <path d=\"M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0\" />\n                <path d=\"M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5\" />\n              </svg></div>\n            <div class=\"count\" data-target=\"50\">1</div>\n            <div class=\"label\">Projects Completed</div>\n          </div>\n          <div class=\"fact\">\n            <div class=\"fact-icon\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"none\" stroke=\"currentColor\"\n                stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n                <path d=\"m8 6-6 6 6 6M16 6l6 6-6 6\" />\n              </svg></div>\n            <div class=\"count\" data-target=\"4\">1</div>\n            <div class=\"label\">Years of Experience</div>\n          </div>\n          <div class=\"fact\">\n            <div class=\"fact-icon\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"none\" stroke=\"currentColor\"\n                stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n                <path\n                  d=\"M12 21s-7.5-4.6-10-9C.3 8.5 2 5 5.5 5 8 5 10 6.5 12 9c2-2.5 4-4 6.5-4C22 5 23.7 8.5 22 12c-2.5 4.4-10 9-10 9Z\" />\n              </svg></div>\n            <div class=\"count\" data-target=\"20\">1</div>\n            <div class=\"label\">Happy Clients</div>\n          </div>\n          <div class=\"fact\">\n            <div class=\"fact-icon\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"none\" stroke=\"currentColor\"\n                stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n                <path\n                  d=\"M6.5 8.5a3.5 3.5 0 1 0 0 7c2.5 0 4-2 5.5-3.5C13.5 10.5 15 8.5 17.5 8.5a3.5 3.5 0 1 1 0 7c-2.5 0-4-2-5.5-3.5\" />\n              </svg></div>\n            <div class=\"count\">&infin;</div>\n            <div class=\"label\">Lines of Code</div>\n          </div>\n        </div>\n      </div>\n    </section>\n\n    <!-- CONTACT -->\n    <section id=\"contact\">\n      <div class=\"container\">\n        <div class=\"section-tag reveal\">\u2726 Let's talk</div>\n        <h2 class=\"section-title reveal\">Let's create something <span class=\"hand\"\n            style=\"color:var(--blue);\">amazing</span> together</h2>\n        <div class=\"contact-grid\">\n          <form class=\"notebook-form reveal\" id=\"contact-form\">\n            <label>Your Name</label>\n            <input type=\"text\" placeholder=\"Rahul Sharma\" required />\n            <label>Your Email</label>\n            <input type=\"email\" placeholder=\"Rahul@example.com\" required />\n            <label>Your Message</label>\n            <textarea rows=\"3\" placeholder=\"Tell me about your project...\" required></textarea>\n            <button type=\"submit\" class=\"send-btn magnetic interactive\" id=\"send-btn\"><span>Send Message <svg\n                  viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"\n                  stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"vertical-align:-2px\">\n                  <path d=\"m21 3-9 18-2-8-8-2Z\" />\n                  <path d=\"M21 3 11 13\" />\n                </svg></span></button>\n          </form>\n          <div class=\"reveal\">\n            <div class=\"section-tag\">\u2726 Find me on</div>\n            <div class=\"social-hand\">\n              <a href=\"https://www.github.com/hamza-khan-16\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"interactive\" aria-label=\"Github\"><svg width=\"20\" height=\"20\"\n                  viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\">\n                  <path\n                    d=\"M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21\" />\n                </svg></a>\n              <a href=\"https://www.linkedin.com/in/hamza-khan-918b12360?utm_source=share_via&utm_content=profile&utm_medium=member_android\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"interactive\" aria-label=\"LinkedIn\"><svg width=\"20\" height=\"20\"\n                  viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\">\n                  <rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" />\n                  <line x1=\"8\" y1=\"11\" x2=\"8\" y2=\"16\" />\n                  <line x1=\"8\" y1=\"8\" x2=\"8\" y2=\"8\" />\n                  <line x1=\"12\" y1=\"16\" x2=\"12\" y2=\"11\" />\n                  <path d=\"M12 13c0-1.5 3-2.5 4-1 .6.8.6 2 .6 2v2\" />\n                </svg></a>\n              <a href=\"https://www.instagram.com/hamzaaaaa_29?igsh=MTMwMnpkdjRxMDN1NQ==\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"interactive\" aria-label=\"Instagram\"><svg width=\"20\" height=\"20\"\n                  viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\">\n                  <rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"5\" />\n                  <circle cx=\"12\" cy=\"12\" r=\"4\" />\n                  <circle cx=\"17.5\" cy=\"6.5\" r=\"1\" />\n                </svg></a>\n            </div>\n            <!-- Email & Phone -->\n            <div style=\"margin-top:28px;display:flex;flex-direction:column;gap:12px;\">\n              <a href=\"mailto:%%ADMIN_EMAIL%%\" class=\"interactive\" style=\"display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-size:.95rem;font-family:'Inter',sans-serif;\">\n                <span style=\"width:36px;height:36px;border:1.5px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;\">\n                  <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/><path d=\"m22 6-10 7L2 6\"/></svg>\n                </span>\n                <span id=\"contact-email-display\">%%ADMIN_EMAIL%%</span>\n              </a>\n              <a href=\"tel:%%ADMIN_PHONE%%\" class=\"interactive\" style=\"display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-size:.95rem;font-family:'Inter',sans-serif;\">\n                <span style=\"width:36px;height:36px;border:1.5px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;\">\n                  <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.42 2 2 0 0 1 3.62 1.24h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l1.08-1.08a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z\"/></svg>\n                </span>\n                <span id=\"contact-phone-display\">%%ADMIN_PHONE%%</span>\n              </a>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n\n  </main>\n\n  <footer>\u00a9 2026 Hamza. All rights reserved. Made with <svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\"\n      fill=\"currentColor\" style=\"vertical-align:-2px\">\n      <path\n        d=\"M12 21s-7.5-4.6-10-9C.3 8.5 2 5 5.5 5 8 5 10 6.5 12 9c2-2.5 4-4 6.5-4C22 5 23.7 8.5 22 12c-2.5 4.4-10 9-10 9Z\" />\n    </svg> and lots of <svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\"\n      stroke-width=\"1.8\" style=\"vertical-align:-2px\">\n      <path d=\"M17 8h1a3 3 0 0 1 0 6h-1\" />\n      <path d=\"M3 8h14v6a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8Z\" />\n      <path d=\"M6 3v2M9 3v2M12 3v2\" />\n    </svg></footer>\n\n<script>\n/* ================= SUPABASE DYNAMIC CONTENT ================= */\n(function() {\n  var SB_URL = '%%SUPABASE_URL%%';\n  var SB_KEY = '%%SUPABASE_ANON_KEY%%';\n  if (!SB_URL || SB_URL.indexOf('%%') === 0) return;\n  function sbFetch(path) {\n    return fetch(SB_URL + '/rest/v1/' + path, {\n      headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY }\n    }).then(function(r){ return r.json(); });\n  }\n  function renderProjects(projects) {\n    var grid = document.getElementById('projects-grid');\n    if (!grid) return;\n    if (!projects || projects.length === 0) {\n      grid.innerHTML = '<div id=\"projects-empty\">No projects yet \u2014 add them in the admin panel.</div>';\n      return;\n    }\n    grid.innerHTML = projects.map(function(p) {\n      var tagsHtml = (p.tags || '').split(',').map(function(t) {\n        return '<span class=\"tag\">' + t.trim() + '</span>';\n      }).join('');\n      var thumbHtml = p.image_url\n        ? '<img src=\"' + p.image_url + '\" alt=\"' + p.title + '\" loading=\"lazy\"/>'\n        : '<svg viewBox=\"0 0 24 24\" width=\"48\" height=\"48\" fill=\"none\" stroke=\"#ccc\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><path d=\"m21 15-5-5L5 21\"/></svg>';\n      var demoHtml = p.live_url\n        ? '<a href=\"' + p.live_url + '\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"live-demo interactive\">Live Demo \u2192</a>'\n        : '';\n      return '<div class=\"project-card tilt-card reveal\">'\n        + '<div class=\"project-thumb\">' + thumbHtml + '</div>'\n        + '<div class=\"project-body\">'\n        + '<div class=\"num\">' + (p.num || '01') + '</div>'\n        + '<h3>' + p.title + '</h3>'\n        + '<p>' + (p.description || '') + '</p>'\n        + '<div class=\"tags\">' + tagsHtml + '</div>'\n        + demoHtml\n        + '</div></div>';\n    }).join('');\n    grid.querySelectorAll('.tilt-card').forEach(function(card) {\n      card.addEventListener('mousemove', function(e) {\n        var r = card.getBoundingClientRect();\n        var px2 = (e.clientX - r.left) / r.width - 0.5;\n        var py2 = (e.clientY - r.top) / r.height - 0.5;\n        gsap.to(card, { rotateY: px2*12, rotateX: -py2*12, duration: 0.4, ease: 'power2.out', transformPerspective: 600 });\n      });\n      card.addEventListener('mouseleave', function() {\n        gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.6, ease: 'power3.out' });\n        document.body.classList.remove('hover-link');\n      });\n      card.addEventListener('mouseenter', function() { document.body.classList.add('hover-link'); });\n    });\n    grid.querySelectorAll('.reveal').forEach(function(el) {\n      gsap.to(el, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',\n        scrollTrigger: { trigger: el, start: 'top 88%' } });\n    });\n  }\n  function renderSiteImages(settings) {\n    if (!settings) return;\n    if (settings.hero_image_url) {\n      var heroImg = document.getElementById('dev-photo');\n      if (heroImg) heroImg.src = settings.hero_image_url;\n    }\n    if (settings.about_image_url) {\n      document.querySelectorAll('.polaroid img').forEach(function(img) {\n        img.src = settings.about_image_url;\n      });\n    }\n  }\n  function applyResume(settings) {\n    if (!settings || !settings.resume_url) return;\n    var resumeUrl = settings.resume_url;\n    var btn = document.getElementById('resume-btn');\n    if (!btn) return;\n    // Prevent default link behaviour and do a blob download instead\n    // (needed because Supabase Storage URLs are cross-origin,\n    //  so the browser ignores the download attribute)\n    btn.href = resumeUrl;\n    btn.addEventListener('click', function(e) {\n      e.preventDefault();\n      var originalText = btn.textContent;\n      btn.textContent = 'Downloading\u2026';\n      fetch(resumeUrl)\n        .then(function(r) { return r.blob(); })\n        .then(function(blob) {\n          var filename = resumeUrl.split('/').pop().split('?')[0] || 'resume.pdf';\n          try { filename = decodeURIComponent(filename); } catch(e) {}\n          var a = document.createElement('a');\n          a.href = URL.createObjectURL(blob);\n          a.download = filename;\n          document.body.appendChild(a);\n          a.click();\n          setTimeout(function() {\n            URL.revokeObjectURL(a.href);\n            document.body.removeChild(a);\n          }, 1000);\n          btn.textContent = originalText;\n        })\n        .catch(function() {\n          // Fallback: open in new tab\n          window.open(resumeUrl, '_blank');\n          btn.textContent = originalText;\n        });\n    });\n  }\n  Promise.all([\n    sbFetch('projects?select=*&order=num'),\n    sbFetch('site_settings?id=eq.main&select=*')\n  ]).then(function(results) {\n    renderProjects(results[0]);\n    renderSiteImages(results[1] && results[1][0]);\n    applyResume(results[1] && results[1][0]);\n  }).catch(function(err) {\n    console.warn('Supabase fetch failed:', err);\n    var grid = document.getElementById('projects-grid');\n    if (grid) grid.innerHTML = '<div id=\"projects-empty\">Could not load projects. Check your Supabase config.</div>';\n  });\n})();\n\nwindow.addEventListener('DOMContentLoaded', function() {\ntry {\n    /* ================= PAGE LOAD FOLD-OPEN INTRO ================= */\n    window.addEventListener('load', () => {\n      const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' }, delay: .2 });\n      tl.to('#intro-mark', { opacity: 0, duration: .35 })\n        .to('.fold-left', { rotateY: -100, duration: 1, transformOrigin: 'left center' }, 0)\n        .to('.fold-right', { rotateY: 100, duration: 1, transformOrigin: 'right center' }, 0)\n        .set('#intro', { display: 'none' })\n        .from('.hey-badge', { opacity: 0, y: 20, duration: .7 }, '-=.3')\n        .from('.hero-title', { opacity: 0, y: 40, duration: .9, ease: 'power3.out' }, '-=.5')\n        .from('.hero-sub', { opacity: 0, y: 20, duration: .8 }, '-=.6')\n        .from('.hero-ctas', { opacity: 0, y: 20, duration: .8 }, '-=.55')\n        .from('.portrait-ring', { opacity: 0, scale: .9, duration: 1, ease: 'power3.out' }, '-=1')\n        .from('.floating-code', { opacity: 0, y: 20, duration: .7, stagger: .15 }, '-=.6');\n    });\n\n    /* ================= LENIS SMOOTH SCROLL + GSAP ================= */\n    gsap.registerPlugin(ScrollTrigger);\n    const lenis = new Lenis({ duration: 1.1, easing: t => 1 - Math.pow(1 - t, 3), smoothWheel: true });\n    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }\n    requestAnimationFrame(raf);\n    lenis.on('scroll', ScrollTrigger.update);\n    gsap.ticker.add((time) => { lenis.raf(time * 1000); });\n    gsap.ticker.lagSmoothing(0);\n\n    document.querySelectorAll('a[href^=\"#\"]').forEach(a => {\n      a.addEventListener('click', e => {\n        e.preventDefault();\n        const target = document.querySelector(a.getAttribute('href'));\n        if (target) lenis.scrollTo(target, { offset: -80 });\n      });\n    });\n\n    /* ================= CUSTOM CURSOR ================= */\n    const cd = document.getElementById('cursor-dot');\n    const cr = document.getElementById('cursor-ring');\n    const cp = document.getElementById('cursor-pencil');\n    let mx = 0, my = 0, rx = 0, ry = 0;\n    window.addEventListener('mousemove', e => {\n      mx = e.clientX; my = e.clientY;\n      cd.style.left = mx + 'px'; cd.style.top = my + 'px';\n      cp.style.left = mx + 'px'; cp.style.top = my + 'px';\n    });\n    function ringLoop() {\n      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;\n      cr.style.left = rx + 'px'; cr.style.top = ry + 'px';\n      requestAnimationFrame(ringLoop);\n    }\n    ringLoop();\n    document.querySelectorAll('.interactive, a, button, .tilt-card').forEach(el => {\n      el.addEventListener('mouseenter', () => document.body.classList.add('hover-link'));\n      el.addEventListener('mouseleave', () => document.body.classList.remove('hover-link'));\n    });\n    document.querySelectorAll('input, textarea').forEach(el => {\n      el.addEventListener('mouseenter', () => document.body.classList.add('hover-pencil'));\n      el.addEventListener('mouseleave', () => document.body.classList.remove('hover-pencil'));\n    });\n\n    /* click ripple */\n    window.addEventListener('mousedown', e => {\n      const r = document.createElement('div');\n      r.className = 'ripple'; r.style.left = e.clientX + 'px'; r.style.top = e.clientY + 'px';\n      document.body.appendChild(r);\n      setTimeout(() => r.remove(), 650);\n    });\n\n    /* ================= PERMANENT INK BLOTS ================= */\n    const inkLayer = document.createElement('div');\n    inkLayer.id = 'ink-blots';\n    document.body.appendChild(inkLayer);\n    const inkColors = ['#181410', '#3B5BFF', '#8B5CF6'];\n    function makeBlobPath(size) {\n      const pts = 9;\n      const coords = [];\n      for (let i = 0; i < pts; i++) {\n        const angle = (Math.PI * 2 / pts) * i;\n        const r = size * (0.62 + Math.random() * 0.38);\n        coords.push([size + Math.cos(angle) * r, size + Math.sin(angle) * r]);\n      }\n      let d = `M ${coords[0][0]} ${coords[0][1]} `;\n      for (let i = 0; i < pts; i++) {\n        const p0 = coords[i], p1 = coords[(i + 1) % pts];\n        const mx = (p0[0] + p1[0]) / 2, my = (p0[1] + p1[1]) / 2;\n        d += `Q ${p0[0]} ${p0[1]} ${mx} ${my} `;\n      }\n      return d + 'Z';\n    }\n    function spawnInkBlot(clientX, clientY) {\n      const pageX = clientX + window.scrollX;\n      const pageY = clientY + window.scrollY;\n      const size = 26 + Math.random() * 30;\n      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');\n      svg.setAttribute('width', size * 2);\n      svg.setAttribute('height', size * 2);\n      svg.setAttribute('viewBox', `0 0 ${size * 2} ${size * 2}`);\n      svg.style.position = 'absolute';\n      svg.style.left = (pageX - size) + 'px';\n      svg.style.top = (pageY - size) + 'px';\n      svg.style.opacity = '0';\n      svg.style.transform = `rotate(${Math.random() * 360}deg) scale(0)`;\n      svg.style.transformOrigin = '50% 50%';\n      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');\n      path.setAttribute('d', makeBlobPath(size));\n      path.setAttribute('fill', inkColors[Math.floor(Math.random() * inkColors.length)]);\n      svg.appendChild(path);\n      inkLayer.appendChild(svg);\n      gsap.to(svg, { opacity: .4, scale: 1, duration: .55, ease: 'back.out(1.8)' });\n    }\n    window.addEventListener('mousedown', e => {\n      spawnInkBlot(e.clientX, e.clientY);\n    });\n\n    /* ================= INK TRAIL CANVAS ================= */\n    const canvas = document.getElementById('ink-trail');\n    const ctx = canvas.getContext('2d');\n    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }\n    resizeCanvas(); window.addEventListener('resize', resizeCanvas);\n    let trail = [];\n    window.addEventListener('mousemove', e => {\n      trail.push({ x: e.clientX, y: e.clientY, life: 1 });\n      if (trail.length > 28) trail.shift();\n    });\n    function drawTrail() {\n      ctx.clearRect(0, 0, canvas.width, canvas.height);\n      ctx.lineJoin = 'round'; ctx.lineCap = 'round';\n      for (let i = 1; i < trail.length; i++) {\n        const p0 = trail[i - 1], p1 = trail[i];\n        p1.life -= 0.035;\n        ctx.strokeStyle = `rgba(59,91,255,${Math.max(p1.life, 0) * 0.45})`;\n        ctx.lineWidth = Math.max(p1.life * 4, 0.4);\n        ctx.beginPath(); ctx.moveTo(p0.x, p0.y); ctx.lineTo(p1.x, p1.y); ctx.stroke();\n      }\n      trail = trail.filter(p => p.life > 0);\n      requestAnimationFrame(drawTrail);\n    }\n    drawTrail();\n\n    /* ================= PAPER AIRPLANE FOLLOWS CURSOR ================= */\n    const plane = document.getElementById('airplane');\n    let px = innerWidth / 2, py = innerHeight / 2, plx = px, ply = py;\n    window.addEventListener('mousemove', e => { px = e.clientX + 30; py = e.clientY - 24; plane.style.opacity = '.75'; });\n    function planeLoop() {\n      plx += (px - plx) * 0.06; ply += (py - ply) * 0.06;\n      plane.style.transform = `translate(${plx}px,${ply}px)`;\n      requestAnimationFrame(planeLoop);\n    }\n    planeLoop();\n\n    /* ================= MAGNETIC BUTTONS ================= */\n    document.querySelectorAll('.magnetic').forEach(btn => {\n      btn.addEventListener('mousemove', e => {\n        const r = btn.getBoundingClientRect();\n        const x = e.clientX - r.left - r.width / 2;\n        const y = e.clientY - r.top - r.height / 2;\n        gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.4, ease: 'power3.out' });\n      });\n      btn.addEventListener('mouseleave', () => gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.4)' }));\n    });\n\n    /* hero button hand-drawn outline draw */\n    const btnPath = document.getElementById('btn-path');\n    if (btnPath) { const btnLen = btnPath.getTotalLength();\n    btnPath.style.strokeDasharray = btnLen;\n    btnPath.style.strokeDashoffset = btnLen;\n    gsap.to(btnPath, { strokeDashoffset: 0, duration: 1.6, delay: 1.6, ease: 'power2.inOut' }); }\n\n    /* scroll indicator arrow loop */\n    const scrollPath = document.getElementById('scroll-path');\n    const slen = scrollPath.getTotalLength();\n    scrollPath.style.strokeDasharray = slen;\n    scrollPath.style.strokeDashoffset = slen;\n    gsap.to(scrollPath, { strokeDashoffset: 0, duration: 1.4, delay: 1.8, ease: 'power2.out', repeat: -1, yoyo: true });\n\n    /* floating code parallax + gentle float */\n    document.querySelectorAll('.floating-code').forEach(el => {\n      gsap.to(el, { y: '+=14', duration: 2 + Math.random(), repeat: -1, yoyo: true, ease: 'sine.inOut' });\n    });\n    window.addEventListener('mousemove', e => {\n      const cx = window.innerWidth / 2, cy = window.innerHeight / 2;\n      const dx = (e.clientX - cx) / cx, dy = (e.clientY - cy) / cy;\n      document.querySelectorAll('.floating-code').forEach(el => {\n        const depth = parseFloat(el.dataset.depth) || 0.4;\n        gsap.to(el, { x: dx * 20 * depth, duration: 0.6, overwrite: 'auto' });\n      });\n    });\n\n    /* ================= SCROLL REVEALS ================= */\n    gsap.utils.toArray('.reveal').forEach(el => {\n      gsap.to(el, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });\n    });\n\n    /* section headings scribble underline draw */\n    document.querySelectorAll('.underline-scribble svg path').forEach(path => {\n      const l = path.getTotalLength();\n      path.style.strokeDasharray = l;\n      path.style.strokeDashoffset = l;\n      gsap.to(path, { strokeDashoffset: 0, duration: 1, scrollTrigger: { trigger: path, start: 'top 90%' } });\n    });\n\n    /* ================= SKILLS ORBIT ================= */\n    const orbitWrap = document.getElementById('orbit-wrap');\n    const cx = 280, cy = 260;\n    const rings = [100, 165, 230];\n    rings.forEach(r => {\n      const el = document.createElement('div');\n      el.className = 'orbit-ring';\n      el.style.width = r * 2 + 'px'; el.style.height = r * 2 + 'px';\n      orbitWrap.appendChild(el);\n    });\n    const svgNS = 'http://www.w3.org/2000/svg';\n    const skillIcons = [\n      { icon: '<path d=\"M4 3h16l-1.5 17L12 22l-6.5-2L4 3Z\" fill=\"none\"/><path d=\"M7 7h10l-.3 3.5H9.5l.25 2.7h6.8L16 18l-4 1.2-4-1.2-.25-3h2.5l.15 1.5L12 17l1.6-.5.2-2.5H7.6L7 7Z\"/>', color: '#E44D26', r: 100, speed: 26, offset: 0 },\n      { icon: '<path d=\"M4 3h16l-1.5 17L12 22l-6.5-2L4 3Z\" fill=\"none\"/><path d=\"M17.2 7H7l.2 2.3h9.7l-.6 6.4-4.3 1.3-4.3-1.3-.3-3h2.2l.15 1.4 2.25.65 2.25-.65.25-2.7H6.6L6 5.1h11.7L17.2 7Z\"/>', color: '#264DE4', r: 100, speed: 26, offset: 180 },\n      { icon: '<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" fill=\"none\"/><path d=\"M10 15.5a1.5 1.5 0 0 1-3 0M14.5 14a1.7 1.7 0 1 0-1.7-1.7\"/>', color: '#D7B404', r: 165, speed: 34, offset: 0 },\n      { icon: '<circle cx=\"12\" cy=\"12\" r=\"2.2\"/><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"3.6\" fill=\"none\"/><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"3.6\" fill=\"none\" transform=\"rotate(60 12 12)\"/><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"3.6\" fill=\"none\" transform=\"rotate(120 12 12)\"/>', color: '#61DAFB', r: 165, speed: 34, offset: 120, strokeOnly: true },\n      { icon: '<path d=\"M12 2 3 6.5v11L12 22l9-4.5v-11L12 2Z\" fill=\"none\"/><path d=\"M12 6.2v5.6M12 11.8 8 14.3M12 11.8l4 2.5\"/>', color: '#3C873A', r: 165, speed: 34, offset: 240 },\n      { icon: '<path d=\"M12 3 22 20H2L12 3Z\" fill=\"none\"/>', color: '#111', r: 230, speed: 42, offset: 90 },\n      { icon: '<path d=\"M9 2h5.5C16 2 17 3 17 4.5V9h-9V6c0-1.7 1-2.7 2-3Z\" fill=\"none\"/><path d=\"M15 22H9.5C8 22 7 21 7 19.5V15h9v3c0 1.7-1 2.7-2 4Z\" fill=\"none\"/><circle cx=\"9.3\" cy=\"5.5\" r=\".7\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"14.7\" cy=\"18.5\" r=\".7\" fill=\"currentColor\" stroke=\"none\"/>', color: '#3B7BB8', r: 230, speed: 42, offset: 180 },\n      { icon: '<circle cx=\"12\" cy=\"12\" r=\"9\" fill=\"none\"/><circle cx=\"12\" cy=\"12\" r=\"5\" fill=\"none\"/><circle cx=\"12\" cy=\"12\" r=\"1.4\" fill=\"currentColor\" stroke=\"none\"/>', color: '#EF4444', r: 230, speed: 42, offset: 270 }\n    ];\n    skillIcons.forEach(s => {\n      const el = document.createElement('div');\n      el.className = 'skill-icon';\n      el.style.color = s.color;\n      const svg = document.createElementNS(svgNS, 'svg');\n      svg.setAttribute('viewBox', '0 0 24 24');\n      svg.setAttribute('width', '28');\n      svg.setAttribute('height', '28');\n      svg.setAttribute('fill', s.strokeOnly ? 'none' : 'currentColor');\n      svg.setAttribute('stroke', 'currentColor');\n      svg.setAttribute('stroke-width', s.strokeOnly ? '1.3' : '1.5');\n      svg.innerHTML = s.icon;\n      el.appendChild(svg);\n      orbitWrap.appendChild(el);\n      let angle = s.offset;\n      function animate() {\n        angle += 360 / (s.speed * 60);\n        const rad = angle * Math.PI / 180;\n        const x = cx + s.r * Math.cos(rad) - 30;\n        const y = cy + s.r * Math.sin(rad) - 30;\n        el.style.left = x + 'px'; el.style.top = y + 'px';\n        requestAnimationFrame(animate);\n      }\n      animate();\n    });\n\n    /* pencil progress bars \u2014 fill on scroll into view */\n    gsap.utils.toArray('.pencil-bar i').forEach(bar => {\n      gsap.to(bar, { width: bar.dataset.w + '%', duration: 1.4, ease: 'power2.out', scrollTrigger: { trigger: bar, start: 'top 90%' } });\n    });\n    gsap.utils.toArray('.skill-pct').forEach(pct => {\n      const target = parseInt(pct.dataset.w);\n      ScrollTrigger.create({\n        trigger: pct, start: 'top 90%', once: true,\n        onEnter() {\n          gsap.to({ val: 0 }, { val: target, duration: 1.4, ease: 'power2.out', onUpdate: function () { pct.textContent = Math.floor(this.targets()[0].val) + '%'; } });\n        }\n      });\n    });\n\n    /* ================= EXPERIENCE LINE DRAW ================= */\n    const expLine = document.getElementById('exp-vline');\n    ScrollTrigger.create({\n      trigger: '.exp-timeline', start: 'top 70%', end: 'bottom 80%', scrub: 0.5,\n      onUpdate(self) {\n        const h = document.querySelector('.exp-timeline').offsetHeight;\n        expLine.setAttribute('y2', h * self.progress);\n      }\n    });\n    expLine.setAttribute('x1', 2);\n\n    /* ================= PROJECT CARD TILT ================= */\n    document.querySelectorAll('.tilt-card').forEach(card => {\n      card.addEventListener('mousemove', e => {\n        const r = card.getBoundingClientRect();\n        const px = (e.clientX - r.left) / r.width - 0.5;\n        const py = (e.clientY - r.top) / r.height - 0.5;\n        gsap.to(card, { rotateY: px * 12, rotateX: -py * 12, duration: 0.4, ease: 'power2.out', transformPerspective: 600 });\n      });\n      card.addEventListener('mouseleave', () => gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.6, ease: 'power3.out' }));\n    });\n\n    /* ================= PROCESS PENCIL TRAVEL ================= */\n    const pencilDot = document.getElementById('process-pencil-dot');\n    const pencilPath = document.getElementById('process-pencil-path');\n    const pathLen = pencilPath.getTotalLength();\n    ScrollTrigger.create({\n      trigger: '.process-wrap', start: 'top 75%', end: 'bottom 60%', scrub: 0.6,\n      onUpdate(self) {\n        const pt = pencilPath.getPointAtLength(pathLen * self.progress);\n        pencilDot.setAttribute('x', pt.x - 10); pencilDot.setAttribute('y', pt.y + 6);\n      }\n    });\n\n    /* ================= TESTIMONIALS CAROUSEL ================= */\n    const testis = [\n      { text: \"Hamza is a fantastic developer who delivered beyond expectations and communicated perfectly throughout the project.\", sign: \"Sarah J.\", role: \"Product Manager, Nimbus Labs\" },\n      { text: \"Incredibly detail oriented and fast. Our web app went from concept to production in record time, flawlessly.\", sign: \"Marco T.\", role: \"Startup Founder\" },\n      { text: \"Clear communicator, fast shipper, and genuinely fun to build with. I'd hire him again in a heartbeat.\", sign: \"Elena R.\", role: \"Design Lead, Studio Pixel\" }\n    ];\n    let ti = 0;\n    const testiText = document.getElementById('testi-text');\n    const testiSign = document.getElementById('testi-sign');\n    const testiRole = document.getElementById('testi-role');\n    const dotsWrap = document.getElementById('testi-dots');\n    function showTesti(i) {\n      gsap.to(testiText, {\n        opacity: 0, y: 8, duration: .25, onComplete: () => {\n          testiText.textContent = testis[i].text;\n          testiSign.childNodes[0].textContent = testis[i].sign;\n          testiRole.textContent = testis[i].role;\n          gsap.to(testiText, { opacity: 1, y: 0, duration: .35 });\n        }\n      });\n      dotsWrap.querySelectorAll('span').forEach((s, idx) => s.classList.toggle('active', idx === i));\n      ti = i;\n    }\n    dotsWrap.querySelectorAll('span').forEach(s => {\n      s.addEventListener('click', () => showTesti(parseInt(s.dataset.i)));\n    });\n    setInterval(() => showTesti((ti + 1) % testis.length), 5200);\n\n    /* ================= FUN FACTS COUNTER ================= */\n    document.querySelectorAll('.count[data-target]').forEach(el => {\n      ScrollTrigger.create({\n        trigger: el, start: 'top 90%', once: true,\n        onEnter() {\n          const target = parseInt(el.dataset.target);\n          gsap.to({ val: 1 }, { val: target, duration: 1.8, ease: 'power2.out', onUpdate: function () { el.textContent = Math.max(1, Math.floor(this.targets()[0].val)) + '+'; } });\n        }\n      });\n    });\n\n    /* ================= FLOATING DOODLES ================= */\n    const doodleEmojis = ['\u2726', '\u2605', '\u2192', '\u263a', '\u270e', '\u2601', '\u2749'];\n    function spawnDoodle() {\n      const d = document.createElement('div');\n      d.className = 'doodle-float hand';\n      d.textContent = doodleEmojis[Math.floor(Math.random() * doodleEmojis.length)];\n      d.style.left = Math.random() * 100 + 'vw';\n      d.style.top = '100vh';\n      d.style.fontSize = (16 + Math.random() * 20) + 'px';\n      d.style.color = Math.random() > 0.5 ? '#3B5BFF' : '#8B5CF6';\n      d.style.opacity = '.6';\n      document.body.appendChild(d);\n      gsap.to(d, { top: '-10vh', x: `+=${(Math.random() - 0.5) * 200}`, rotation: Math.random() * 180, duration: 8 + Math.random() * 6, ease: 'none', onComplete: () => d.remove() });\n    }\n    setInterval(spawnDoodle, 3400);\n\n    /* ================= NAV SCROLL BG ================= */\n    const navEl = document.querySelector('nav');\n    ScrollTrigger.create({\n      start: 'top -80', end: 99999,\n      onUpdate(self) {\n        if (window.scrollY > 80) {\n          navEl.style.background = 'rgba(250,250,247,0.85)';\n          navEl.style.backdropFilter = 'blur(10px)';\n          navEl.style.boxShadow = '0 1px 0 rgba(0,0,0,0.06)';\n        } else {\n          navEl.style.background = 'transparent';\n          navEl.style.boxShadow = 'none';\n        }\n      }\n    });\n\n    /* ================= FORM SUBMIT -> PAPER AIRPLANE ================= */\n    document.getElementById('contact-form').addEventListener('submit', e => {\n      e.preventDefault();\n      var form = e.target;\n      var name    = (form.querySelector('input[type=text]') || {}).value || '';\n      var email   = (form.querySelector('input[type=email]') || {}).value || '';\n      var message = (form.querySelector('textarea') || {}).value || '';\n      var adminEmail = '%%ADMIN_EMAIL%%';\n      var subject = encodeURIComponent('Project Inquiry from ' + name);\n      var body = encodeURIComponent(\n        'Hi Hamza,' + '\\n\\n' +\n        message + '\\n\\n' +\n        'From: ' + name + '\\n' +\n        'Reply to: ' + email\n      );\n      var mailtoUrl = 'mailto:' + adminEmail + '?subject=' + subject + '&body=' + body;\n      // Paper airplane animation first, then open mail client\n      var btn = document.getElementById('send-btn');\n      var rect = btn.getBoundingClientRect();\n      var flyer = document.createElement('div');\n      flyer.innerHTML = '<svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"none\" stroke=\"#3B5BFF\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m21 3-9 18-2-8-8-2Z\"/><path d=\"M21 3 11 13\"/></svg>';\n      flyer.style.position = 'fixed';\n      flyer.style.left = rect.left + rect.width / 2 + 'px';\n      flyer.style.top = rect.top + 'px';\n      flyer.style.zIndex = '999';\n      document.body.appendChild(flyer);\n      var sentIcon = '<svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"vertical-align:-2px\"><path d=\"M20 6 9 17l-5-5\"/></svg>';\n      var defaultLabel = btn.querySelector('span').innerHTML;\n      gsap.to(flyer, {\n        x: window.innerWidth - rect.left, y: -300, rotation: 35, opacity: 0,\n        duration: 1.3, ease: 'power1.in',\n        onComplete: () => {\n          flyer.remove();\n          window.location.href = mailtoUrl;\n          btn.querySelector('span').innerHTML = 'Opening mail app\u2026 ' + sentIcon;\n          setTimeout(() => btn.querySelector('span').innerHTML = defaultLabel, 3000);\n        }\n      });\n      form.reset();\n    });\n\n\n    /* ================= HAMBURGER MENU ================= */\n    const hamburgerBtn = document.getElementById('hamburger');\n    const mobileNav = document.getElementById('mobile-nav');\n    function toggleMenu(open) {\n      hamburgerBtn.classList.toggle('open', open);\n      mobileNav.classList.toggle('open', open);\n      document.body.style.overflow = open ? 'hidden' : '';\n    }\n    hamburgerBtn.addEventListener('click', () => toggleMenu(!hamburgerBtn.classList.contains('open')));\n    mobileNav.querySelectorAll('a, button').forEach(el => {\n      el.addEventListener('click', () => toggleMenu(false));\n    });\n\n} catch (e) { console.error('portfolio script error', e); }\n});\n</script>\n</body>\n</html>\n";
+// Redesigned: rope_port cinematic dark aesthetic — original logic preserved.
+export const portfolioHtml = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hamza K. — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+:root {
+  --bg:         oklch(0.09 0.015 155);
+  --fg:         oklch(0.94 0.02 130);
+  --muted:      oklch(0.60 0.04 140);
+  --card:       oklch(0.13 0.02 155 / 0.5);
+  --border:     oklch(0.78 0.19 145 / 0.15);
+  --emerald:    oklch(0.78 0.19 145);
+  --emerald-hi: oklch(0.88 0.22 140);
+  --mono: "Geist Mono", ui-monospace, monospace;
+  --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: var(--bg); scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+::selection { background: oklch(0.78 0.19 145 / 0.35); color: var(--fg); }
+
+/* ---------- MONO UTILITY ---------- */
+.mono { font-family: var(--mono); }
+.em-glow {
+  color: var(--emerald-hi);
+  text-shadow: 0 0 30px oklch(0.78 0.19 145 / 0.6);
+}
+
+/* ---------- AMBIENT CANVAS ---------- */
+#bg-canvas {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+/* ---------- VIGNETTE ---------- */
+#vignette {
+  position: fixed; inset: 0; z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(120% 80% at 50% 50%, transparent 40%, oklch(0.05 0.01 155 / 0.75) 100%);
+}
+
+/* ---------- CUSTOM CURSOR ---------- */
+#cursor-dot, #cursor-ring {
+  position: fixed; top: 0; left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+}
+#cursor-dot { width: 5px; height: 5px; background: var(--emerald-hi); }
+#cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid var(--emerald);
+  transition: width .25s, height .25s, border-color .25s, background .25s, opacity .2s;
+}
+body.hover-link #cursor-ring {
+  width: 50px; height: 50px;
+  background: oklch(0.78 0.19 145 / 0.08);
+  border-color: var(--emerald-hi);
+}
+
+/* ---------- SCROLL PROGRESS RAIL ---------- */
+#scroll-rail {
+  position: fixed; left: 24px; top: 50%; z-index: 40;
+  transform: translateY(-50%);
+  height: 52vh; width: 1px;
+  background: oklch(0.78 0.19 145 / 0.15);
+  display: none;
+}
+#scroll-fill {
+  position: absolute; top: 0; left: 0; width: 1px;
+  background: linear-gradient(to bottom, var(--emerald-hi), transparent);
+  box-shadow: 0 0 12px oklch(0.88 0.22 140 / 0.9);
+  transition: height .1s linear;
+}
+#scroll-dot {
+  position: absolute; left: -3px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--emerald-hi);
+  box-shadow: 0 0 14px var(--emerald-hi);
+  transition: top .1s linear;
+}
+#scroll-label {
+  position: absolute; bottom: -32px; left: -2px;
+  font-family: var(--mono); font-size: 9px;
+  text-transform: uppercase; letter-spacing: .4em;
+  color: var(--muted);
+  transform: rotate(-90deg) translateX(-50%);
+  white-space: nowrap;
+  transform-origin: 0 50%;
+}
+@media(min-width:768px){ #scroll-rail { display: block; } }
+
+/* ---------- BOTTOM CORNERS ---------- */
+#corner-left {
+  position: fixed; bottom: 24px; left: 24px; z-index: 40;
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .3em; color: var(--muted);
+  display: none;
+}
+#corner-right {
+  position: fixed; bottom: 24px; right: 24px; z-index: 40;
+  font-family: var(--mono); font-size: 9px;
+  text-transform: uppercase; letter-spacing: .4em; color: var(--muted);
+  transform: rotate(-90deg); transform-origin: bottom right;
+  display: none;
+}
+@media(min-width:768px){ #corner-left, #corner-right { display: block; } }
+
+/* ---------- GLASS PANEL ---------- */
+.glass {
+  background: color-mix(in oklab, var(--bg) 55%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--border);
+  box-shadow:
+    inset 0 1px 0 oklch(0.78 0.19 145 / 0.08),
+    0 20px 60px -30px oklch(0.78 0.19 145 / 0.25);
+  border-radius: 4px;
+  position: relative;
+}
+.glass::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(110deg, transparent 20%, oklch(0.88 0.22 140 / 0.35) 50%, transparent 80%);
+  background-size: 200% 100%;
+  animation: shimmer 6s linear infinite;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* ---------- NAV ---------- */
+nav {
+  position: fixed; inset-x: 0; top: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 40px;
+  transition: background .3s;
+}
+nav.scrolled {
+  background: oklch(0.09 0.015 155 / 0.85);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  font-family: var(--mono); font-size: 13px;
+  text-transform: uppercase; letter-spacing: .35em;
+}
+.logo span { color: var(--emerald); }
+
+.nav-links {
+  display: flex; gap: 28px; list-style: none;
+}
+.nav-links a {
+  font-family: var(--mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .28em;
+  color: var(--muted);
+  transition: color .3s;
+  position: relative;
+}
+.nav-links a.active, .nav-links a:hover { color: var(--fg); }
+.nav-links a.active::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0;
+  width: 100%; height: 1px;
+  background: var(--emerald-hi);
+}
+
+.talk-btn {
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .3em;
+  border: 1px solid oklch(0.78 0.19 145 / 0.35);
+  border-radius: 4px;
+  padding: 8px 18px;
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+  transition: border-color .3s;
+  display: flex; align-items: center; gap: 6px;
+}
+.talk-btn:hover { border-color: var(--emerald); }
+
+.available-dot {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .3em;
+  color: var(--muted);
+}
+.available-dot span {
+  position: relative; display: flex; width: 8px; height: 8px;
+}
+.available-dot span::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: var(--emerald);
+  animation: ping 1.5s ease-in-out infinite;
+  opacity: .6;
+}
+.available-dot span::after {
+  content: '';
+  position: absolute; inset: 1px;
+  border-radius: 50%; background: var(--emerald-hi);
+}
+@keyframes ping {
+  0%,100%{ transform: scale(1); opacity: .6; }
+  50%    { transform: scale(1.9); opacity: 0; }
+}
+
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 6px; z-index: 600;
+}
+.hamburger span {
+  display: block; width: 22px; height: 1px;
+  background: var(--fg); transition: transform .3s, opacity .3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.mobile-nav {
+  display: none; position: fixed; inset: 0;
+  background: var(--bg); z-index: 490;
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 36px; opacity: 0; pointer-events: none;
+  transition: opacity .35s;
+}
+.mobile-nav.open { opacity: 1; pointer-events: all; }
+.mobile-nav a {
+  font-family: var(--mono); font-size: 1.6rem;
+  text-transform: uppercase; letter-spacing: .2em;
+}
+
+@media(max-width: 900px){
+  .nav-links, .available-dot { display: none !important; }
+  .hamburger { display: flex; }
+  .mobile-nav { display: flex; }
+  nav { padding: 18px 24px; }
+}
+
+/* ---------- SECTION LABEL ---------- */
+.section-label {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .3em;
+  color: var(--emerald);
+}
+.section-label::before {
+  content: ''; display: inline-block;
+  width: 32px; height: 1px;
+  background: oklch(0.78 0.19 145 / 0.6);
+}
+.section-label .sub { color: var(--muted); }
+
+/* ---------- SECTION ---------- */
+section { position: relative; z-index: 10; padding: 140px 8vw 60px; }
+.container { max-width: 1280px; margin: 0 auto; position: relative; }
+
+/* ---------- REVEAL ---------- */
+.reveal { opacity: 0; transform: translateY(24px); filter: blur(10px); }
+
+/* ---------- HERO ---------- */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding-top: 100px;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px; align-items: center; width: 100%;
+}
+.hero-title {
+  font-size: clamp(2.8rem,6.5vw,7rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-top: 32px;
+}
+.hero-title .italic { font-style: italic; font-weight: 300; }
+.hero-sub {
+  font-family: var(--mono); font-size: 13px;
+  color: var(--muted); line-height: 1.7;
+  margin-top: 28px; max-width: 420px;
+}
+.hero-ctas { display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap; align-items: center; }
+
+.pill-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .28em;
+  border-radius: 4px; padding: 14px 22px;
+  cursor: pointer; border: none;
+  transition: all .4s;
+  text-decoration: none;
+}
+.pill-btn-primary {
+  background: var(--emerald); color: oklch(0.08 0.02 155);
+  box-shadow: 0 0 40px -8px oklch(0.78 0.19 145 / 0.7);
+}
+.pill-btn-primary:hover { background: oklch(0.85 0.2 140); }
+.pill-btn-ghost {
+  background: transparent; color: var(--fg);
+  border: 1px solid oklch(0.78 0.19 145 / 0.35);
+}
+.pill-btn-ghost:hover {
+  border-color: oklch(0.78 0.19 145 / 0.8);
+  background: oklch(0.78 0.19 145 / 0.06);
+}
+.pill-btn svg { transition: transform .4s; }
+.pill-btn:hover svg { transform: translate(2px,-2px); }
+
+/* hero floating panel */
+.hero-panel {
+  display: none;
+}
+@media(min-width:900px){
+  .hero-panel {
+    display: block;
+    animation: float-slow 8s ease-in-out infinite;
+  }
+}
+@keyframes float-slow {
+  0%,100%{ transform: translateY(0); }
+  50%    { transform: translateY(-8px); }
+}
+
+.scroll-hint {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .5em;
+  color: var(--muted); animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
+
+@media(max-width:900px){
+  .hero-grid { grid-template-columns: 1fr; }
+  #hero { padding-top: 100px; }
+}
+
+/* ---------- ABOUT ---------- */
+.about-grid {
+  display: grid; grid-template-columns: 5fr 7fr;
+  gap: 48px; margin-top: 48px;
+}
+@media(max-width:768px){ .about-grid { grid-template-columns: 1fr; } }
+
+.about-stats {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 16px; border-top: 1px solid var(--border); padding-top: 24px; margin-top: 28px;
+}
+.about-stat-num {
+  font-size: 2rem; font-weight: 300;
+  color: var(--emerald-hi);
+  text-shadow: 0 0 30px oklch(0.78 0.19 145 / 0.6);
+}
+.about-stat-lbl {
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .25em;
+  color: var(--muted); margin-top: 4px;
+}
+
+.timeline { margin-top: 28px; padding-left: 20px; list-style: none; }
+.timeline li {
+  position: relative; padding-bottom: 22px;
+  padding-left: 20px;
+  border-left: 1px solid oklch(0.78 0.19 145 / 0.25);
+  margin-left: 4px;
+}
+.timeline li::before {
+  content: '';
+  position: absolute; left: -5px; top: 4px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--emerald);
+  box-shadow: 0 0 10px var(--emerald);
+}
+.timeline b {
+  display: block; font-size: 13px;
+  font-family: var(--mono); font-weight: 400;
+}
+.timeline span { color: var(--muted); font-size: 11px; font-family: var(--mono); }
+
+/* ---------- EXPERIENCE ---------- */
+.exp-vein {
+  position: absolute; left: 3px; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, oklch(0.78 0.19 145 / 0.6), oklch(0.78 0.19 145 / 0.1), transparent);
+}
+@media(min-width:768px){
+  .exp-vein { left: 50%; }
+}
+.exp-item {
+  position: relative; margin-bottom: 64px;
+  display: grid; grid-template-columns: 1fr;
+  gap: 24px; align-items: center; padding-left: 40px;
+}
+@media(min-width:768px){
+  .exp-item { grid-template-columns: 1fr 1fr; padding-left: 0; }
+  .exp-item:nth-child(even) > .exp-card-wrap { order: -1; }
+  .exp-item:nth-child(odd) > .exp-year-wrap { text-align: right; padding-right: 48px; }
+  .exp-item:nth-child(even) > .exp-year-wrap { padding-left: 48px; }
+  .exp-item:nth-child(odd) > .exp-card-wrap { padding-left: 48px; }
+}
+.exp-node {
+  position: absolute; top: 4px;
+  left: 0; transform: translateX(-50%);
+}
+@media(min-width:768px){
+  .exp-node { left: 50%; }
+}
+.exp-node-inner {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--emerald-hi);
+  box-shadow: 0 0 25px oklch(0.88 0.22 140 / 0.9);
+  position: relative;
+}
+.exp-node-inner::before {
+  content: '';
+  position: absolute; inset: 4px;
+  border-radius: 50%; background: var(--bg);
+}
+.exp-node-inner::after {
+  content: '';
+  position: absolute; inset: 8px;
+  border-radius: 50%; background: var(--emerald-hi);
+  animation: pulse 2s ease-in-out infinite;
+}
+.exp-year {
+  font-size: 3rem; font-weight: 300;
+  color: var(--emerald-hi);
+  text-shadow: 0 0 30px oklch(0.78 0.19 145 / 0.6);
+  font-family: var(--sans);
+}
+.exp-card-wrap .glass { padding: 24px; }
+.exp-role {
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .3em;
+  color: var(--emerald-hi);
+}
+.exp-title { margin-top: 8px; font-size: 1.2rem; font-weight: 300; }
+.exp-desc {
+  font-family: var(--mono); font-size: 11px;
+  line-height: 1.6; color: var(--muted); margin-top: 10px;
+}
+
+/* ---------- SKILLS ---------- */
+.skills-grid {
+  display: grid; grid-template-columns: repeat(2,1fr);
+  gap: 14px; margin-top: 56px;
+}
+@media(min-width:600px){ .skills-grid { grid-template-columns: repeat(4,1fr); } }
+.skill-tile {
+  position: relative; aspect-ratio: 1;
+  border: 1px solid oklch(0.78 0.19 145 / 0.15);
+  background: oklch(0.10 0.02 155 / 0.5);
+  border-radius: 4px; padding: 16px;
+  transition: border-color .5s, background .5s;
+  overflow: hidden;
+  cursor: default;
+}
+.skill-tile:hover {
+  border-color: oklch(0.78 0.19 145 / 0.7);
+  background: oklch(0.14 0.03 155 / 0.7);
+}
+.skill-tile::before {
+  content: '';
+  position: absolute; right: -24px; top: -24px;
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--emerald);
+  opacity: 0;
+  filter: blur(24px);
+  transition: opacity .5s;
+}
+.skill-tile:hover::before { opacity: .7; }
+.skill-type {
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .3em;
+  color: var(--muted);
+}
+.skill-name {
+  position: absolute; bottom: 16px; left: 16px; right: 16px;
+  font-size: 1rem; font-weight: 300; line-height: 1.2;
+}
+.skill-dot {
+  position: absolute; bottom: 16px; right: 16px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--emerald-hi);
+  box-shadow: 0 0 10px var(--emerald-hi);
+  transition: transform .5s;
+}
+.skill-tile:hover .skill-dot { transform: scale(3); }
+
+/* skill progress bars (orbit replaced by grid + bars) */
+.skills-bars { margin-top: 32px; display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+@media(min-width:600px){ .skills-bars { grid-template-columns: repeat(4,1fr); } }
+.skill-bar-item { }
+.skill-bar-label {
+  display: flex; justify-content: space-between;
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .2em;
+  color: var(--muted); margin-bottom: 8px;
+}
+.skill-bar-pct { color: var(--emerald-hi); }
+.skill-bar-track {
+  height: 2px; background: oklch(0.78 0.19 145 / 0.15);
+  border-radius: 2px; overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--emerald), var(--emerald-hi));
+  box-shadow: 0 0 8px var(--emerald);
+  border-radius: 2px;
+}
+
+/* ---------- PROCESS ---------- */
+.process-line {
+  position: absolute; left: 0; right: 0; top: 24px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, oklch(0.78 0.19 145 / 0.5), transparent);
+  display: none;
+}
+@media(min-width:768px){ .process-line { display: block; } }
+.process-steps { display: grid; grid-template-columns: repeat(2,1fr); gap: 32px; margin-top: 56px; }
+@media(min-width:768px){ .process-steps { grid-template-columns: repeat(5,1fr); } }
+.process-step { text-align: center; }
+.process-step-node {
+  position: relative; width: 48px; height: 48px;
+  margin: 0 auto 24px;
+}
+.process-step-node::before {
+  content: '';
+  position: absolute; inset: 0; border-radius: 50%;
+  border: 1px solid oklch(0.78 0.19 145 / 0.5);
+}
+.process-step-node::after {
+  content: '';
+  position: absolute; inset: 8px; border-radius: 50%;
+  background: var(--emerald-hi);
+  box-shadow: 0 0 30px oklch(0.88 0.22 140 / 0.7);
+}
+.process-num {
+  position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .3em; color: var(--muted);
+}
+.process-title { font-size: 1.1rem; font-weight: 300; margin-top: 8px; }
+.process-desc {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--muted); line-height: 1.55; margin-top: 6px;
+}
+
+/* ---------- TESTIMONIALS ---------- */
+.testi-grid {
+  display: grid; grid-template-columns: 1fr;
+  gap: 20px; margin-top: 48px;
+}
+@media(min-width:768px){ .testi-grid { grid-template-columns: 1fr 1fr; } }
+.testi-card .glass { padding: 28px; height: 100%; }
+.testi-quote {
+  font-family: var(--mono); font-size: 2rem;
+  color: var(--emerald); line-height: 1;
+}
+.testi-text { font-size: 1rem; font-weight: 300; line-height: 1.65; margin-top: 8px; }
+.testi-author {
+  display: flex; align-items: center; gap: 12px;
+  border-top: 1px solid var(--border); padding-top: 14px; margin-top: 20px;
+}
+.testi-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--emerald), oklch(0.4 0.1 155));
+  flex-shrink: 0;
+}
+.testi-name { font-family: var(--mono); font-size: 11px; }
+.testi-role {
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .25em;
+  color: var(--muted); margin-top: 2px;
+}
+
+/* ---------- FACTS ---------- */
+.facts-grid {
+  display: grid; grid-template-columns: repeat(2,1fr);
+  gap: 24px; margin-top: 48px;
+}
+@media(min-width:768px){ .facts-grid { grid-template-columns: repeat(4,1fr); } }
+.fact-tile .glass { padding: 28px; text-align: center; }
+.fact-num {
+  font-size: 2.5rem; font-weight: 300;
+  color: var(--emerald-hi);
+  text-shadow: 0 0 30px oklch(0.78 0.19 145 / 0.6);
+  font-family: var(--sans);
+}
+.fact-lbl {
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .25em;
+  color: var(--muted); margin-top: 8px;
+}
+
+/* ---------- CONTACT ---------- */
+.contact-wrap {
+  max-width: 640px; margin: 0 auto; text-align: center;
+}
+.contact-form-glass .glass { padding: 36px; text-align: left; }
+.term-bar {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .3em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 20px;
+}
+.term-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--emerald-hi); animation: pulse 2s infinite;
+}
+.form-field { margin-top: 20px; }
+.form-field label {
+  display: block; font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .3em;
+  color: var(--muted); margin-bottom: 8px;
+}
+.form-field input, .form-field textarea {
+  width: 100%; background: transparent; border: none;
+  border-bottom: 1px solid oklch(0.78 0.19 145 / 0.3);
+  padding: 8px 0; font-family: var(--mono); font-size: 13px;
+  color: var(--fg); outline: none;
+  transition: border-color .3s;
+  resize: none;
+}
+.form-field input:focus, .form-field textarea:focus {
+  border-bottom-color: var(--emerald-hi);
+}
+.form-field input::placeholder, .form-field textarea::placeholder { color: var(--muted); }
+.form-actions {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 28px;
+}
+.form-note {
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .3em; color: var(--muted);
+}
+
+.contact-side { margin-top: 48px; }
+.socials { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 20px; justify-content: center; }
+.social-link {
+  width: 44px; height: 44px; border: 1px solid var(--border);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  transition: border-color .3s, background .3s;
+}
+.social-link:hover { border-color: var(--emerald); background: oklch(0.78 0.19 145 / 0.08); }
+
+.contact-details { margin-top: 28px; display: flex; flex-direction: column; gap: 14px; align-items: center; }
+.contact-detail {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 12px;
+  color: var(--fg); text-decoration: none;
+}
+.contact-detail-icon {
+  width: 32px; height: 32px; border: 1px solid var(--border);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 56px 8vw;
+  display: flex; flex-wrap: wrap;
+  justify-content: space-between; align-items: flex-end;
+  gap: 32px; position: relative; z-index: 10;
+}
+.footer-brand { }
+.footer-caption {
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .35em; color: var(--muted);
+}
+.footer-name { font-size: 2rem; font-weight: 300; margin-top: 10px; }
+.footer-name span { color: var(--emerald); }
+.footer-copy {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--muted); margin-top: 8px;
+}
+.footer-links {
+  display: flex; flex-wrap: wrap; gap: 24px;
+}
+.footer-links a {
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .3em;
+  color: var(--muted); transition: color .3s;
+}
+.footer-links a:hover { color: var(--fg); }
+
+/* ---------- SKELETON ---------- */
+@keyframes skShimmer { 0%{background-position:-400px 0} 100%{background-position:400px 0} }
+.sk-line {
+  height: 12px; border-radius: 3px; margin: 8px 0;
+  background: linear-gradient(90deg, oklch(0.78 0.19 145 / 0.08) 25%, oklch(0.78 0.19 145 / 0.15) 50%, oklch(0.78 0.19 145 / 0.08) 75%);
+  background-size: 800px 100%; animation: skShimmer 1.4s infinite;
+}
+.sk-w40{width:40%} .sk-w60{width:60%} .sk-w80{width:80%}
+.sk-thumb {
+  height: 180px; border-radius: 4px 4px 0 0;
+  background: linear-gradient(90deg, oklch(0.78 0.19 145 / 0.08) 25%, oklch(0.78 0.19 145 / 0.15) 50%, oklch(0.78 0.19 145 / 0.08) 75%);
+  background-size: 800px 100%; animation: skShimmer 1.4s infinite;
+}
+
+/* ---------- PROJECTS ---------- */
+.projects-list { margin-top: 56px; }
+.project-row {
+  position: relative;
+  display: grid; grid-template-columns: 2fr 5fr 4fr 1fr;
+  align-items: center; gap: 24px;
+  border-top: 1px solid oklch(0.78 0.19 145 / 0.15);
+  padding: 28px 0;
+  cursor: pointer; text-decoration: none; color: var(--fg);
+  transition: border-color .4s;
+}
+.project-row:hover { border-color: oklch(0.78 0.19 145 / 0.6); }
+.project-row::before {
+  content: '';
+  position: absolute; top: -1px; left: 0; right: 0; height: 1px;
+  background: linear-gradient(to right, transparent, var(--emerald-hi), transparent);
+  opacity: 0; transition: opacity .4s;
+}
+.project-row:hover::before { opacity: 1; }
+.project-num {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--muted);
+}
+.project-title {
+  font-size: clamp(1.4rem,2.5vw,2.2rem);
+  font-weight: 300; line-height: 1.1;
+  letter-spacing: -0.02em;
+  transition: transform .4s;
+}
+.project-row:hover .project-title { transform: translateX(8px); }
+.project-sub {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--muted); margin-top: 6px;
+}
+.project-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.project-tag {
+  font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .2em;
+  color: var(--muted);
+  border: 1px solid oklch(0.78 0.19 145 / 0.25);
+  border-radius: 4px; padding: 4px 10px;
+}
+.project-arrow {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid oklch(0.78 0.19 145 / 0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; justify-self: end;
+  transition: transform .4s, border-color .4s, background .4s;
+}
+.project-row:hover .project-arrow {
+  transform: rotate(45deg);
+  border-color: var(--emerald-hi);
+  background: oklch(0.78 0.19 145 / 0.15);
+}
+@media(max-width:768px){
+  .project-row { grid-template-columns: 1fr; }
+  .project-tags { display: none; }
+}
+#projects-empty {
+  text-align: center; padding: 60px 20px;
+  font-family: var(--mono); color: var(--muted);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:768px){
+  section { padding: 100px 5vw 40px; }
+  .hero-title { font-size: clamp(2.4rem,9vw,3.6rem); }
+  .exp-item { padding-left: 36px; }
+  footer { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- AMBIENT CANVAS -->
+<canvas id="bg-canvas"></canvas>
+<div id="vignette"></div>
+
+<!-- CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- SCROLL RAIL -->
+<div id="scroll-rail">
+  <div id="scroll-fill"></div>
+  <div id="scroll-dot"></div>
+  <div id="scroll-label">Scroll &middot; Journey</div>
+</div>
+
+<!-- CORNERS -->
+<div id="corner-left">
+  <div style="color:var(--emerald)">&#9616;&#9616; Now rendering</div>
+  <div style="margin-top:4px">HamzaK.dev</div>
+</div>
+<div id="corner-right">Est &middot; MMXXVI &middot; Portfolio</div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#hero" class="logo">HamzaK<span>.dev</span></a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#hero" data-section="0">01_ Home</a></li>
+    <li><a href="#about" data-section="1">02_ About</a></li>
+    <li><a href="#experience" data-section="2">03_ Experience</a></li>
+    <li><a href="#skills" data-section="3">04_ Skills</a></li>
+    <li><a href="#projects" data-section="4">05_ Projects</a></li>
+    <li><a href="#contact" data-section="5">06_ Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:20px;">
+    <div class="available-dot" id="avail-badge">
+      <span></span>
+      Available for work
+    </div>
+    <a href="#contact" class="talk-btn">
+      Let's connect <span>&#x2197;</span>
+    </a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#hero">Home</a>
+  <a href="#about">About</a>
+  <a href="#experience">Experience</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero" data-section="0">
+    <div class="container hero-grid">
+      <div>
+        <div class="section-label reveal">
+          <span>01_</span>
+          <span class="sub">/ The beginning</span>
+        </div>
+        <h1 class="hero-title reveal">
+          I build<br>
+          digital<br>
+          <span class="em-glow italic">experiences_</span>
+        </h1>
+        <p class="hero-sub reveal mono">
+          Full-stack developer crafting modern, fast and accessible web
+          experiences &mdash; one commit at a time.
+        </p>
+        <div class="hero-ctas reveal">
+          <a href="#projects" class="pill-btn pill-btn-primary" id="viewwork-btn">
+            Explore my work
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+          </a>
+          <a href="#" class="pill-btn pill-btn-ghost" id="resume-btn" download>
+            Download Resume
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="hero-panel glass p-6 reveal" style="padding:24px;">
+          <div class="mono" style="font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--muted)">01 / 06</div>
+          <div class="mono" style="font-size:1.1rem;letter-spacing:.15em;margin-top:14px;">ABOUT ME_</div>
+          <p class="mono" style="margin-top:10px;font-size:11px;line-height:1.6;color:var(--muted)">
+            Get to know the developer behind the code.
+          </p>
+          <a href="#about" class="mono" style="margin-top:18px;display:inline-flex;align-items:center;gap:8px;font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--emerald-hi);">
+            View section <span>&#x2197;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint mono">scroll to travel &#x2193;</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" data-section="1">
+    <div class="container">
+      <div class="section-label reveal"><span>02_</span><span class="sub">/ A smaller branch</span></div>
+      <h2 class="reveal" style="font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:1;letter-spacing:-0.02em;margin-top:22px;">
+        Built from<br><span class="em-glow italic">curiosity</span> and midnight coffee.
+      </h2>
+      <div class="about-grid">
+        <div class="reveal">
+          <ul class="timeline">
+            <li><b>2021 &mdash; Started coding journey</b><span>Learned HTML, CSS &amp; JS fundamentals</span></li>
+            <li><b>2022 &mdash; First internship</b><span>Frontend development at a startup</span></li>
+            <li><b>2023 &mdash; Full stack role</b><span>Building end-to-end products with React &amp; Node</span></li>
+            <li><b>2026 &mdash; Freelance &amp; open source</b><span>Crafting products, mentoring, shipping ideas</span></li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <div class="glass" style="padding:32px;">
+            <p class="mono" style="font-size:13px;line-height:1.75;color:var(--muted);">
+              I'm a passionate full-stack developer based in India. I love turning ideas into reality using code, and
+              creating impactful digital solutions. Always curious, always learning &mdash; I sketch out problems before I
+              solve them in code. Obsessed with the seam between engineering and emotion.
+            </p>
+            <div class="about-stats">
+              <div>
+                <div class="about-stat-num">4+</div>
+                <div class="about-stat-lbl">Years shipping</div>
+              </div>
+              <div>
+                <div class="about-stat-num">50+</div>
+                <div class="about-stat-lbl">Projects built</div>
+              </div>
+              <div>
+                <div class="about-stat-num">20+</div>
+                <div class="about-stat-lbl">Happy clients</div>
+              </div>
+            </div>
+            <div style="margin-top:22px;display:flex;flex-direction:column;gap:8px;">
+              <div class="mono" style="font-size:11px;color:var(--muted);">
+                &#x25cf; <span style="color:oklch(0.65 0.19 145)">Available for work</span> &nbsp;&middot;&nbsp; Remote / Onsite
+              </div>
+              <div class="mono" style="font-size:11px;color:var(--muted);">
+                &#x2709; <span id="about-email">%%ADMIN_EMAIL%%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" data-section="2">
+    <div class="container">
+      <div class="section-label reveal"><span>03_</span><span class="sub">/ Rings of the branch</span></div>
+      <h2 class="reveal" style="font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:1;letter-spacing:-0.02em;margin-top:22px;">
+        A timeline etched<br>into <span class="em-glow italic">bark</span>.
+      </h2>
+      <div style="margin-top:64px;position:relative;">
+        <div class="exp-vein"></div>
+
+        <div class="exp-item reveal">
+          <div class="exp-node"><div class="exp-node-inner"></div></div>
+          <div class="exp-year-wrap">
+            <div class="exp-year">2025</div>
+            <div class="mono" style="font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--muted);margin-top:4px;">Present</div>
+          </div>
+          <div class="exp-card-wrap">
+            <div class="glass" style="padding:24px;">
+              <div class="exp-role">Freelance</div>
+              <div class="exp-title">Full Stack Developer</div>
+              <p class="exp-desc">Building end-to-end web products for clients &mdash; from sketch to deployment.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-node"><div class="exp-node-inner"></div></div>
+          <div class="exp-year-wrap">
+            <div class="exp-year">2023</div>
+            <div class="mono" style="font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--muted);margin-top:4px;">2023 &mdash; 2025</div>
+          </div>
+          <div class="exp-card-wrap">
+            <div class="glass" style="padding:24px;">
+              <div class="exp-role">TechNova Labs</div>
+              <div class="exp-title">Software Engineer</div>
+              <p class="exp-desc">Built and scaled internal tools and customer-facing dashboards for a fast-growing SaaS product.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-node"><div class="exp-node-inner"></div></div>
+          <div class="exp-year-wrap">
+            <div class="exp-year">2022</div>
+            <div class="mono" style="font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--muted);margin-top:4px;">2022 &mdash; 2023</div>
+          </div>
+          <div class="exp-card-wrap">
+            <div class="glass" style="padding:24px;">
+              <div class="exp-role">PixelWorks</div>
+              <div class="exp-title">Frontend Intern</div>
+              <p class="exp-desc">Learned the ropes of production-grade React applications and design systems.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" data-section="3">
+    <div class="container">
+      <div class="section-label reveal"><span>04_</span><span class="sub">/ Glowing fruit</span></div>
+      <h2 class="reveal" style="font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:1;letter-spacing:-0.02em;margin-top:22px;">
+        Skills that grew from<br><span class="em-glow italic">the branch</span>.
+      </h2>
+
+      <!-- skill tiles grid -->
+      <div class="skills-grid" style="margin-top:48px;">
+        <div class="skill-tile reveal"><div class="skill-type">core</div><div class="skill-name">JavaScript / TypeScript</div><div class="skill-dot"></div></div>
+        <div class="skill-tile reveal"><div class="skill-type">UI</div><div class="skill-name">React / Next.js</div><div class="skill-dot"></div></div>
+        <div class="skill-tile reveal"><div class="skill-type">runtime</div><div class="skill-name">Node.js / Express</div><div class="skill-dot"></div></div>
+        <div class="skill-tile reveal"><div class="skill-type">data</div><div class="skill-name">Databases / DevOps</div><div class="skill-dot"></div></div>
+        <div class="skill-tile reveal"><div class="skill-type">styling</div><div class="skill-name">Tailwind / CSS</div><div class="skill-dot"></div></div>
+        <div class="skill-tile reveal"><div class="skill-type">backend</div><div class="skill-name">PostgreSQL / Supabase</div><div class="skill-dot"></div></div>
+        <div class="skill-tile reveal"><div class="skill-type">motion</div><div class="skill-name">GSAP / Framer</div><div class="skill-dot"></div></div>
+        <div class="skill-tile reveal"><div class="skill-type">deploy</div><div class="skill-name">Docker / CI/CD</div><div class="skill-dot"></div></div>
+      </div>
+
+      <!-- progress bars -->
+      <div class="skills-bars" style="margin-top:48px;">
+        <div class="skill-bar-item reveal">
+          <div class="skill-bar-label">
+            <span>JS / TS</span><span class="skill-bar-pct" data-w="92">0%</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-w="92"></div></div>
+        </div>
+        <div class="skill-bar-item reveal">
+          <div class="skill-bar-label">
+            <span>React / Next</span><span class="skill-bar-pct" data-w="95">0%</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-w="95"></div></div>
+        </div>
+        <div class="skill-bar-item reveal">
+          <div class="skill-bar-label">
+            <span>Node.js</span><span class="skill-bar-pct" data-w="88">0%</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-w="88"></div></div>
+        </div>
+        <div class="skill-bar-item reveal">
+          <div class="skill-bar-label">
+            <span>Databases</span><span class="skill-bar-pct" data-w="80">0%</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-w="80"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" data-section="4">
+    <div class="container">
+      <div class="section-label reveal"><span>05_</span><span class="sub">/ Crystalline flowers</span></div>
+      <h2 class="reveal" style="font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:1;letter-spacing:-0.02em;margin-top:22px;">
+        Selected <span class="em-glow italic">works_</span>
+      </h2>
+      <div class="projects-list" id="projects-grid">
+        <!-- skeleton -->
+        <div style="border-top:1px solid var(--border);padding:28px 0;">
+          <div class="sk-line sk-w40"></div><div class="sk-line sk-w60"></div>
+        </div>
+        <div style="border-top:1px solid var(--border);padding:28px 0;">
+          <div class="sk-line sk-w60"></div><div class="sk-line sk-w40"></div>
+        </div>
+        <div style="border-top:1px solid var(--border);padding:28px 0;">
+          <div class="sk-line sk-w80"></div><div class="sk-line sk-w40"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" data-section="5">
+    <div class="container">
+      <div class="section-label reveal"><span>06_</span><span class="sub">/ Living roots</span></div>
+      <h2 class="reveal" style="font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:1;letter-spacing:-0.02em;margin-top:22px;">
+        How the <span class="em-glow italic">energy</span> travels.
+      </h2>
+      <div style="margin-top:56px;position:relative;">
+        <div class="process-line"></div>
+        <div class="process-steps">
+          <div class="process-step reveal">
+            <div class="process-step-node"><div class="process-num">01</div></div>
+            <div class="process-title">Idea</div>
+            <p class="process-desc">Understanding the problem &amp; brainstorming solutions.</p>
+          </div>
+          <div class="process-step reveal">
+            <div class="process-step-node"><div class="process-num">02</div></div>
+            <div class="process-title">Plan</div>
+            <p class="process-desc">Planning structure, tech stack and workflow.</p>
+          </div>
+          <div class="process-step reveal">
+            <div class="process-step-node"><div class="process-num">03</div></div>
+            <div class="process-title">Build</div>
+            <p class="process-desc">Writing clean code and bringing ideas to life.</p>
+          </div>
+          <div class="process-step reveal">
+            <div class="process-step-node"><div class="process-num">04</div></div>
+            <div class="process-title">Test</div>
+            <p class="process-desc">Quality, performance and polish.</p>
+          </div>
+          <div class="process-step reveal">
+            <div class="process-step-node"><div class="process-num">05</div></div>
+            <div class="process-title">Launch</div>
+            <p class="process-desc">Deploying and making an impact in the wild.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-label reveal"><span>07_</span><span class="sub">/ Whispers on the wind</span></div>
+      <h2 class="reveal" style="font-size:clamp(2rem,4.5vw,4rem);font-weight:300;line-height:1;letter-spacing:-0.02em;margin-top:22px;">
+        What people <span class="em-glow italic">say</span>.
+      </h2>
+      <div class="testi-grid">
+        <div class="testi-card reveal">
+          <div class="glass" style="padding:28px;">
+            <div class="testi-quote">"</div>
+            <p class="testi-text">Hamza is a fantastic developer who delivered beyond expectations and communicated perfectly throughout the project.</p>
+            <div class="testi-author">
+              <div class="testi-avatar"></div>
+              <div><div class="testi-name">Sarah J.</div><div class="testi-role">Product Manager, Nimbus Labs</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal">
+          <div class="glass" style="padding:28px;">
+            <div class="testi-quote">"</div>
+            <p class="testi-text">Incredibly detail oriented and fast. Our web app went from concept to production in record time, flawlessly.</p>
+            <div class="testi-author">
+              <div class="testi-avatar"></div>
+              <div><div class="testi-name">Marco T.</div><div class="testi-role">Startup Founder</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal">
+          <div class="glass" style="padding:28px;">
+            <div class="testi-quote">"</div>
+            <p class="testi-text">Clear communicator, fast shipper, and genuinely fun to build with. I'd hire him again in a heartbeat.</p>
+            <div class="testi-author">
+              <div class="testi-avatar"></div>
+              <div><div class="testi-name">Elena R.</div><div class="testi-role">Design Lead, Studio Pixel</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal">
+          <div class="glass" style="padding:28px;">
+            <div class="testi-quote">"</div>
+            <p class="testi-text">Every commit felt intentional. Every UI felt polished. Rare combination of speed and craft.</p>
+            <div class="testi-author">
+              <div class="testi-avatar"></div>
+              <div><div class="testi-name">Alex D.</div><div class="testi-role">CTO, DevConnect</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FACTS -->
+  <section id="facts">
+    <div class="container">
+      <div class="section-label reveal"><span>// </span><span class="sub">Fun facts</span></div>
+      <div class="facts-grid" style="margin-top:40px;">
+        <div class="fact-tile reveal">
+          <div class="glass" style="padding:28px;text-align:center;">
+            <div class="fact-num" data-target="50">1</div>
+            <div class="fact-lbl">Projects Completed</div>
+          </div>
+        </div>
+        <div class="fact-tile reveal">
+          <div class="glass" style="padding:28px;text-align:center;">
+            <div class="fact-num" data-target="4">1</div>
+            <div class="fact-lbl">Years of Experience</div>
+          </div>
+        </div>
+        <div class="fact-tile reveal">
+          <div class="glass" style="padding:28px;text-align:center;">
+            <div class="fact-num" data-target="20">1</div>
+            <div class="fact-lbl">Happy Clients</div>
+          </div>
+        </div>
+        <div class="fact-tile reveal">
+          <div class="glass" style="padding:28px;text-align:center;">
+            <div class="fact-num">&infin;</div>
+            <div class="fact-lbl">Lines of Code</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" data-section="6">
+    <div class="container">
+      <div class="reveal" style="display:flex;justify-content:center;">
+        <div class="section-label"><span>08_</span><span class="sub">/ End of the branch</span></div>
+      </div>
+      <div class="contact-wrap">
+        <h2 class="reveal" style="font-size:clamp(2.2rem,6vw,5.5rem);font-weight:300;line-height:0.95;letter-spacing:-0.02em;margin-top:22px;text-align:center;">
+          Send a <span class="em-glow italic">seed</span><br>into the void.
+        </h2>
+        <p class="mono reveal" style="font-size:12px;line-height:1.7;color:var(--muted);margin-top:20px;text-align:center;">
+          Have an idea worth growing? Drop a line &mdash; every reply starts a new branch.
+        </p>
+
+        <div class="contact-form-glass reveal" style="margin-top:48px;">
+          <div class="glass" style="padding:36px;">
+            <div class="term-bar">
+              <div class="term-dot"></div>
+              <span>terminal &middot; /send-seed</span>
+            </div>
+            <form id="contact-form">
+              <div class="form-field">
+                <label>Your name</label>
+                <input type="text" placeholder="anonymous_traveler" required />
+              </div>
+              <div class="form-field">
+                <label>Signal address</label>
+                <input type="email" placeholder="you@somewhere.void" required />
+              </div>
+              <div class="form-field">
+                <label>Message</label>
+                <textarea rows="4" placeholder="Tell me about the world you want to build..." required></textarea>
+              </div>
+              <div class="form-actions">
+                <div class="form-note">encrypted &middot; end-to-end</div>
+                <button type="submit" id="send-btn" class="pill-btn pill-btn-primary">
+                  Release seed
+                  <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="contact-side reveal">
+          <div class="socials">
+            <a href="https://www.github.com/hamza-khan-16" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Github">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/hamza-khan-918b12360?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <line x1="8" y1="11" x2="8" y2="16"/>
+                <line x1="8" y1="8" x2="8" y2="8"/>
+                <line x1="12" y1="16" x2="12" y2="11"/>
+                <path d="M12 13c0-1.5 3-2.5 4-1 .6.8.6 2 .6 2v2"/>
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/hamzaaaaa_29?igsh=MTMwMnpkdjRxMDN1NQ==" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="3" width="18" height="18" rx="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="1"/>
+              </svg>
+            </a>
+          </div>
+          <div class="contact-details">
+            <a href="mailto:%%ADMIN_EMAIL%%" class="contact-detail">
+              <div class="contact-detail-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+              </div>
+              <span id="contact-email-display">%%ADMIN_EMAIL%%</span>
+            </a>
+            <a href="tel:%%ADMIN_PHONE%%" class="contact-detail">
+              <div class="contact-detail-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.42 2 2 0 0 1 3.62 1.24h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l1.08-1.08a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+              </div>
+              <span id="contact-phone-display">%%ADMIN_PHONE%%</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-brand">
+    <div class="footer-caption">A new branch has begun</div>
+    <div class="footer-name">HamzaK<span>.dev</span></div>
+    <div class="footer-copy">&copy; MMXXVI &middot; Crafted with code &amp; curiosity</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://www.github.com/hamza-khan-16" target="_blank">GitHub &#x2197;</a>
+    <a href="https://www.linkedin.com/in/hamza-khan-918b12360?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank">LinkedIn &#x2197;</a>
+    <a href="https://www.instagram.com/hamzaaaaa_29?igsh=MTMwMnpkdjRxMDN1NQ==" target="_blank">Instagram &#x2197;</a>
+    <a href="mailto:%%ADMIN_EMAIL%%">Email &#x2197;</a>
+  </div>
+</footer>
+
+<script>
+/* ================= SUPABASE DYNAMIC CONTENT ================= */
+(function() {
+  var SB_URL = '%%SUPABASE_URL%%';
+  var SB_KEY = '%%SUPABASE_ANON_KEY%%';
+  if (!SB_URL || SB_URL.indexOf('%%') === 0) return;
+  function sbFetch(path) {
+    return fetch(SB_URL + '/rest/v1/' + path, {
+      headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY }
+    }).then(function(r){ return r.json(); });
+  }
+  function renderProjects(projects) {
+    var grid = document.getElementById('projects-grid');
+    if (!grid) return;
+    if (!projects || projects.length === 0) {
+      grid.innerHTML = '<div id="projects-empty">No projects yet &mdash; add them in the admin panel.</div>';
+      return;
+    }
+    grid.innerHTML = projects.map(function(p, idx) {
+      var tagsHtml = (p.tags || '').split(',').map(function(t) {
+        return '<span class="project-tag">' + t.trim() + '</span>';
+      }).join('');
+      var demoHref = p.live_url || '#';
+      var num = p.num || String(idx+1).padStart(2,'0');
+      return '<a href="' + demoHref + '" target="_blank" rel="noopener noreferrer" class="project-row reveal">'
+        + '<div class="project-num mono">/ ' + num + '</div>'
+        + '<div><div class="project-title">' + p.title + '</div>'
+        + '<div class="project-sub mono">' + (p.description || '') + '</div></div>'
+        + '<div class="project-tags">' + tagsHtml + '</div>'
+        + '<div class="project-arrow">&#x2197;</div>'
+        + '</a>';
+    }).join('');
+    grid.querySelectorAll('.reveal').forEach(function(el) {
+      gsap.to(el, { opacity: 1, y: 0, filter:'blur(0px)', duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' } });
+    });
+  }
+  function renderSiteImages(settings) {
+    if (!settings) return;
+    if (settings.hero_image_url) {
+      var heroImg = document.getElementById('dev-photo');
+      if (heroImg) heroImg.src = settings.hero_image_url;
+    }
+    if (settings.about_image_url) {
+      document.querySelectorAll('.polaroid img').forEach(function(img) {
+        img.src = settings.about_image_url;
+      });
+    }
+  }
+  function applyResume(settings) {
+    if (!settings || !settings.resume_url) return;
+    var resumeUrl = settings.resume_url;
+    var btn = document.getElementById('resume-btn');
+    if (!btn) return;
+    btn.href = resumeUrl;
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var originalHTML = btn.innerHTML;
+      btn.textContent = 'Downloading\u2026';
+      fetch(resumeUrl)
+        .then(function(r) { return r.blob(); })
+        .then(function(blob) {
+          var filename = resumeUrl.split('/').pop().split('?')[0] || 'resume.pdf';
+          try { filename = decodeURIComponent(filename); } catch(e) {}
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(function() { URL.revokeObjectURL(a.href); document.body.removeChild(a); }, 1000);
+          btn.innerHTML = originalHTML;
+        })
+        .catch(function() { window.open(resumeUrl, '_blank'); btn.innerHTML = originalHTML; });
+    });
+  }
+  Promise.all([
+    sbFetch('projects?select=*&order=num'),
+    sbFetch('site_settings?id=eq.main&select=*')
+  ]).then(function(results) {
+    renderProjects(results[0]);
+    renderSiteImages(results[1] && results[1][0]);
+    applyResume(results[1] && results[1][0]);
+  }).catch(function(err) {
+    console.warn('Supabase fetch failed:', err);
+    var grid = document.getElementById('projects-grid');
+    if (grid) grid.innerHTML = '<div id="projects-empty">Could not load projects. Check your Supabase config.</div>';
+  });
+})();
+
+window.addEventListener('DOMContentLoaded', function() {
+try {
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ---- LENIS ---- */
+  var lenis = new Lenis({ duration: 1.4, smoothWheel: true });
+  function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+  lenis.on('scroll', ScrollTrigger.update);
+  window.lenis = lenis;
+
+  /* anchor links */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target, { offset: -80 });
+    });
+  });
+
+  /* ---- AMBIENT CANVAS ---- */
+  var canvas = document.getElementById('bg-canvas');
+  var ctx = canvas.getContext('2d');
+  function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  var particles = [];
+  for (var i = 0; i < 90; i++) {
+    particles.push({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: 0.8 + Math.random() * 1.4,
+      dx: (Math.random() - 0.5) * 0.18,
+      dy: (Math.random() - 0.5) * 0.18,
+      o: 0.1 + Math.random() * 0.45
+    });
+  }
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(function(p) {
+      p.x += p.dx; p.y += p.dy;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'oklch(0.88 0.22 140 / ' + p.o + ')';
+      ctx.fill();
+    });
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
+
+  /* ---- SCROLL PROGRESS ---- */
+  var fillEl = document.getElementById('scroll-fill');
+  var dotEl  = document.getElementById('scroll-dot');
+  function onScroll() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var p = max > 0 ? window.scrollY / max : 0;
+    if (fillEl) fillEl.style.height = (p * 100) + '%';
+    if (dotEl)  dotEl.style.top = 'calc(' + (p*100) + '% - 4px)';
+    /* active nav */
+    var sections = document.querySelectorAll('[data-section]');
+    var mid = window.scrollY + window.innerHeight / 2;
+    var active = 0;
+    sections.forEach(function(s) { if (s.offsetTop <= mid) active = parseInt(s.dataset.section || 0); });
+    document.querySelectorAll('.nav-links a').forEach(function(a) {
+      a.classList.toggle('active', parseInt(a.dataset.section||0) === active);
+    });
+    /* nav bg */
+    var nav = document.getElementById('main-nav');
+    if (window.scrollY > 80) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }
+  lenis.on('scroll', onScroll);
+  onScroll();
+
+  /* ---- CUSTOM CURSOR ---- */
+  var cd = document.getElementById('cursor-dot');
+  var cr = document.getElementById('cursor-ring');
+  var mx = 0, my = 0, rx = 0, ry = 0;
+  window.addEventListener('mousemove', function(e) {
+    mx = e.clientX; my = e.clientY;
+    cd.style.left = mx + 'px'; cd.style.top = my + 'px';
+  });
+  function ringLoop() {
+    rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16;
+    cr.style.left = rx + 'px'; cr.style.top = ry + 'px';
+    requestAnimationFrame(ringLoop);
+  }
+  ringLoop();
+  document.querySelectorAll('a, button, .skill-tile, .project-row').forEach(function(el) {
+    el.addEventListener('mouseenter', function() { document.body.classList.add('hover-link'); });
+    el.addEventListener('mouseleave', function() { document.body.classList.remove('hover-link'); });
+  });
+  /* hide cursor on touch */
+  if ('ontouchstart' in window) {
+    cd.style.display = 'none'; cr.style.display = 'none';
+    document.body.style.cursor = 'auto';
+  }
+
+  /* ---- REVEALS ---- */
+  gsap.utils.toArray('.reveal').forEach(function(el) {
+    gsap.to(el, {
+      opacity: 1, y: 0, filter: 'blur(0px)',
+      duration: 1.0, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+    });
+  });
+
+  /* ---- SKILL BAR FILLS ---- */
+  gsap.utils.toArray('.skill-bar-fill').forEach(function(bar) {
+    gsap.to(bar, {
+      width: bar.dataset.w + '%', duration: 1.4, ease: 'power2.out',
+      scrollTrigger: { trigger: bar, start: 'top 90%', once: true }
+    });
+  });
+  gsap.utils.toArray('.skill-bar-pct').forEach(function(pct) {
+    var target = parseInt(pct.dataset.w);
+    ScrollTrigger.create({
+      trigger: pct, start: 'top 90%', once: true,
+      onEnter: function() {
+        gsap.to({ val: 0 }, { val: target, duration: 1.4, ease: 'power2.out',
+          onUpdate: function() { pct.textContent = Math.floor(this.targets()[0].val) + '%'; }
+        });
+      }
+    });
+  });
+
+  /* ---- FACT COUNTERS ---- */
+  document.querySelectorAll('.fact-num[data-target]').forEach(function(el) {
+    ScrollTrigger.create({
+      trigger: el, start: 'top 90%', once: true,
+      onEnter: function() {
+        gsap.to({ val: 1 }, { val: parseInt(el.dataset.target), duration: 1.8, ease: 'power2.out',
+          onUpdate: function() { el.textContent = Math.max(1, Math.floor(this.targets()[0].val)) + '+'; }
+        });
+      }
+    });
+  });
+
+  /* ---- HAMBURGER ---- */
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  function toggleMenu(open) {
+    hamburger.classList.toggle('open', open);
+    mobileNav.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  hamburger.addEventListener('click', function() { toggleMenu(!hamburger.classList.contains('open')); });
+  mobileNav.querySelectorAll('a').forEach(function(el) { el.addEventListener('click', function() { toggleMenu(false); }); });
+
+  /* ---- CONTACT FORM ---- */
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var form = e.target;
+    var name    = (form.querySelector('input[type=text]') || {}).value || '';
+    var email   = (form.querySelector('input[type=email]') || {}).value || '';
+    var message = (form.querySelector('textarea') || {}).value || '';
+    var adminEmail = '%%ADMIN_EMAIL%%';
+    var subject = encodeURIComponent('Project Inquiry from ' + name);
+    var body = encodeURIComponent('Hi Hamza,\\n\\n' + message + '\\n\\nFrom: ' + name + '\\nReply to: ' + email);
+    var mailtoUrl = 'mailto:' + adminEmail + '?subject=' + subject + '&body=' + body;
+    var btn = document.getElementById('send-btn');
+    var origHTML = btn.innerHTML;
+    btn.textContent = 'Launching\u2026';
+    setTimeout(function() {
+      window.location.href = mailtoUrl;
+      form.reset();
+      setTimeout(function() { btn.innerHTML = origHTML; }, 2000);
+    }, 400);
+  });
+
+} catch(e) { console.error('portfolio script error', e); }
+});
+</script>
+</body>
+</html>
+`;
