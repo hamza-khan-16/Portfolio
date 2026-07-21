@@ -31,6 +31,10 @@ export function useScrollSound(
       const ctx = new AC();
       s.ctx = ctx;
       s.started = true;
+      // Mobile browsers create AudioContext in "suspended" state until a
+      // user gesture. Resume immediately — this call is itself inside a
+      // gesture handler chain so it will succeed on iOS Safari / Android.
+      if (ctx.state === "suspended") void ctx.resume();
 
       /* ── Master ─────────────────────────────────────────────────── */
       const master = ctx.createGain();
@@ -110,24 +114,35 @@ export function useScrollSound(
       s.rawVel = Math.max(s.rawVel, impulse);
     };
 
-    const onFirstGesture = () => {
-      start();
+    // Called on every user gesture — resumes a suspended context each time.
+    // Mobile browsers (iOS Safari, Android Chrome) suspend AudioContext until
+    // a user gesture occurs, and may re-suspend it; we must call resume() on
+    // every interaction, not just the first one.
+    const resumeCtx = () => {
       const s = stateRef.current;
-      if (s.ctx && s.ctx.state === "suspended") void s.ctx.resume();
+      if (!s.started) {
+        start();
+      } else if (s.ctx && s.ctx.state === "suspended") {
+        void s.ctx.resume();
+      }
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("wheel", onScroll, { passive: true });
     window.addEventListener("touchmove", onScroll, { passive: true });
-    window.addEventListener("pointerdown", onFirstGesture, { once: true });
-    window.addEventListener("keydown", onFirstGesture, { once: true });
+    // touchstart fires on iOS before pointerdown and is the most reliable
+    // gesture event for unblocking AudioContext on mobile Safari.
+    window.addEventListener("touchstart", resumeCtx, { passive: true });
+    window.addEventListener("pointerdown", resumeCtx, { passive: true });
+    window.addEventListener("keydown", resumeCtx, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("wheel", onScroll);
       window.removeEventListener("touchmove", onScroll);
-      window.removeEventListener("pointerdown", onFirstGesture);
-      window.removeEventListener("keydown", onFirstGesture);
+      window.removeEventListener("touchstart", resumeCtx);
+      window.removeEventListener("pointerdown", resumeCtx);
+      window.removeEventListener("keydown", resumeCtx);
       const ctx = stateRef.current.ctx as (AudioContext & { __cleanup?: () => void }) | null;
       ctx?.__cleanup?.();
       stateRef.current.ctx = null;

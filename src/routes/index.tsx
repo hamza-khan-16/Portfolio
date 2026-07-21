@@ -265,14 +265,17 @@ function Index() {
     const email = (form.querySelector('input[name="email"]') as HTMLInputElement)?.value ?? "";
     const message = (form.querySelector('textarea[name="message"]') as HTMLTextAreaElement)?.value ?? "";
     const subject = encodeURIComponent(`Project Inquiry from ${name}`);
-    const body = encodeURIComponent(`Hi Hamza,\n\n${message}\n\nFrom: ${name}\nReply to: ${email}`);
+    const body = encodeURIComponent(`Hi Hamza,\n\nName: ${name}\nEmail: ${email}\n\n${message}`);
+    const mailtoUrl = `mailto:${ADMIN_EMAIL}?subject=${subject}&body=${body}`;
+
+    // Open mailto: immediately within the user-gesture handler.
+    // Using window.open avoids mobile browsers blocking navigations
+    // that happen inside a setTimeout (which loses the gesture context).
     setContactStatus("sending");
-    setTimeout(() => {
-      window.location.href = `mailto:${ADMIN_EMAIL}?subject=${subject}&body=${body}`;
-      form.reset();
-      setContactStatus("sent");
-      setTimeout(() => setContactStatus("idle"), 3000);
-    }, 600);
+    window.open(mailtoUrl, "_self");
+    form.reset();
+    setContactStatus("sent");
+    setTimeout(() => setContactStatus("idle"), 3000);
   }
 
   async function handleResume(e: React.MouseEvent) {
@@ -1048,9 +1051,16 @@ function Index() {
                     <div className="mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
                       {contactStatus === "sent" ? "✓ Message sent!" : "Send via email"}
                     </div>
-                    <PillButton>
-                      {contactStatus === "sending" ? "Sending…" : contactStatus === "sent" ? "Sent ✓" : "Send Message"}
-                    </PillButton>
+                    <button
+                      type="submit"
+                      data-cursor="hover"
+                      className="mono group relative inline-flex items-center gap-3 overflow-hidden rounded-sm px-6 py-3.5 text-[11px] uppercase tracking-[0.28em] transition-all duration-500 breathe bg-[oklch(0.78_0.19_145)] text-[oklch(0.08_0.02_155)] hover:bg-[oklch(0.85_0.2_140)] shadow-[0_0_40px_-8px_oklch(0.78_0.19_145/0.7)]"
+                    >
+                      <span>{contactStatus === "sending" ? "Sending…" : contactStatus === "sent" ? "Sent ✓" : "Send Message"}</span>
+                      <svg width="12" height="12" viewBox="0 0 12 12" className="transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1">
+                        <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.2" fill="none" />
+                      </svg>
+                    </button>
                   </div>
                 </GlassPanel>
               </form>
